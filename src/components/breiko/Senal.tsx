@@ -18,7 +18,7 @@ export function Placa({ producto, tamano = "m", className = "" }: { producto: Pr
   const t = TAM[tamano];
   return (
     <span className={`inline-flex rounded-[6px] font-display font-bold leading-none ${e.cls.split(" ").slice(0, 2).join(" ")} ${t.outer} ${className}`}>
-      <span className={`rounded-[4px] border-2 ${e.cls.split(" ")[2]} ${t.inner} leading-[1.15]`}>{e.label}</span>
+      <span className={`flex items-center rounded-[4px] border-2 ${e.cls.split(" ")[2]} ${t.inner} leading-[1.15]`}>{e.label}</span>
     </span>
   );
 }

@@ -75,20 +75,23 @@ const LEGAL = [
 ];
 
 export function SiteFooter() {
-  const h = "mb-4 font-display text-[24px] font-bold text-blanco";
+  const h = "mb-4 font-display text-[20px] font-semibold leading-none text-blanco";
   const a = "text-base text-blanco/85 underline-offset-4 hover:underline";
   return (
     <footer className="bg-asfalto text-blanco">
-      <div className="pt-[28px]"><LineaCarril /></div>
-      <div className="mx-auto max-w-[1200px] px-6 pt-[28px]">
-        <a href={LINKS.matriz} aria-label="Breiko Breiko, inicio" className="inline-block">
-          <img src={logoBlanco.url} alt="Breiko Breiko" width={80} height={40} className="h-10 w-auto" />
-        </a>
-      </div>
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div><h2 className={h}>Productos</h2><ul className="space-y-3">{PRODUCTS.map((p) => <li key={p.id}><a href={p.href} className="inline-block"><Placa producto={p.id} tamano="s" /></a></li>)}</ul></div>
+      <div className="pt-[18px]"><LineaCarril /></div>
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 pb-10 pt-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr_1.2fr]">
+        <div>
+          <a href={LINKS.matriz} aria-label="Breiko Breiko, inicio" className="inline-block">
+            <img src={logoBlanco.url} alt="Breiko Breiko" width={80} height={40} className="h-10 w-auto" />
+          </a>
+          <p className="mt-4 text-base text-blanco/85">Tecnología para el transporte por carretera.</p>
+          <a className={`${a} mt-2 inline-block underline`} href="mailto:canal19@breikobreiko.com">canal19@breikobreiko.com</a>
+        </div>
+        <div><h2 className={h}>Productos</h2><ul className="flex flex-col items-start gap-2">{PRODUCTS.map((p) => <li key={p.id}><a href={p.href} className="inline-block" aria-label={`Breiko ${p.id}`}><Placa producto={p.id} tamano="s" className="h-8" /></a></li>)}</ul></div>
         <div><h2 className={h}>Empresa</h2><ul className="space-y-2"><li><a className={a} href="https://breikobreiko.com/empresa">Sobre nosotros</a></li><li><a className={a} href="https://breikobreiko.com/contacto">Contacto</a></li></ul></div>
-        <div><h2 className={h}>Legal</h2><ul className="space-y-2">{LEGAL.map(([l, s]) => <li key={s}><a className={a} href={`https://breikobreiko.com/${s}`}>{l}</a></li>)}</ul></div>
+        <div><h2 className={h}>Legal</h2><ul className="space-y-2">{LEGAL.map(([l, s]) => <li key={s}><a className={a} href={`https://breikobreiko.com/${s}`}>{l}</a></li>)}
+          <li><button type="button" className={`${a} text-left`} onClick={() => { localStorage.removeItem("bb-cookies"); window.dispatchEvent(new Event("bb-cookies-open")); }}>Configurar cookies</button></li></ul></div>
         <div><h2 className={h}>Descarga la app</h2><StoreButtons oscuro /></div>
       </div>
       <div className="mx-auto max-w-[1200px] px-6">
@@ -100,7 +103,12 @@ export function SiteFooter() {
 
 export function CookieNotice() {
   const [show, setShow] = useState(false);
-  useEffect(() => { setShow(localStorage.getItem("bb-cookies") !== "ok"); }, []);
+  useEffect(() => {
+    setShow(localStorage.getItem("bb-cookies") !== "ok");
+    const open = () => setShow(true);
+    window.addEventListener("bb-cookies-open", open);
+    return () => window.removeEventListener("bb-cookies-open", open);
+  }, []);
   if (!show) return null;
   return (
     <div role="region" aria-label="Aviso de cookies" className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl flex-col gap-3 rounded-[6px] border-2 border-asfalto bg-blanco p-4 text-base text-asfalto sm:flex-row sm:items-center">
