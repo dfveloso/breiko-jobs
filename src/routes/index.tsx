@@ -45,7 +45,7 @@ function Index() {
           <div className="relative mx-auto max-w-3xl px-5">
             <span className="inline-block rounded-full border border-jobs/40 bg-jobs/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-jobs">Próximamente</span>
             <h1 className="mt-6 text-display text-ink-foreground">Empleo para conductores <span className="text-jobs">profesionales</span></h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink-muted">Muy pronto, ofertas de trabajo de conducción dentro de Breiko Breiko, la app que ya usan miles de camioneros en España. Apúntate y serás de los primeros en enterarte.</p>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink-muted">Muy pronto, ofertas de trabajo de conducción dentro de Breiko Breiko, la app de la comunidad de conductores profesionales. Apúntate y serás de los primeros en enterarte.</p>
             <button type="button" onClick={() => open("conductor")} className="mt-10 rounded-[12px] bg-gradient-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-elegant transition-transform duration-150 hover:-translate-y-0.5">Me interesa</button>
             <p className="mt-3 text-sm text-ink-muted">Gratis para conductores</p>
           </div>

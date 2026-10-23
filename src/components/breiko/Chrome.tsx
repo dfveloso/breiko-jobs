@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { LINKS } from "@/lib/provincias";
+import logoBlanco from "@/assets/logo_breiko_blanco.png.asset.json";
 
 const PRODUCTS = [
   { name: "APP", desc: "La app de los camioneros", href: "https://app.breikobreiko.com", color: "bg-app" },
@@ -11,10 +12,11 @@ const PRODUCTS = [
 
 export function Logo() {
   return (
-    <span className="flex items-center gap-2 text-ink-foreground">
-      <a href={LINKS.matriz} className="font-extrabold tracking-tight">Breiko Breiko</a>
-      <span className="text-ink-muted">/</span>
-      <span className="font-semibold text-jobs">Jobs</span>
+    <span className="flex items-center gap-2.5 text-ink-foreground">
+      <a href={LINKS.matriz} aria-label="Breiko Breiko">
+        <img src={logoBlanco.url} alt="Breiko Breiko" width={67} height={32} className="h-8 w-auto" />
+      </a>
+      <span className="text-lg font-semibold text-jobs">/ Jobs</span>
     </span>
   );
 }
@@ -80,7 +82,10 @@ export function SiteFooter() {
   const a = "text-sm text-ink-muted hover:text-ink-foreground";
   return (
     <footer className="border-t border-ink-border bg-ink">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-6xl px-5 pt-14">
+        <a href={LINKS.matriz} aria-label="Breiko Breiko"><img src={logoBlanco.url} alt="Breiko Breiko" width={84} height={40} className="h-10 w-auto" loading="lazy" /></a>
+      </div>
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div><h2 className={h}>Productos</h2><ul className="space-y-2">{PRODUCTS.map((p) => <li key={p.name}><a className={a} href={p.href}>{p.name}</a></li>)}</ul></div>
         <div><h2 className={h}>Empresa</h2><ul className="space-y-2"><li><a className={a} href="https://breikobreiko.com/empresa">Sobre nosotros</a></li><li><a className={a} href="https://breikobreiko.com/contacto">Contacto</a></li></ul></div>
         <div><h2 className={h}>Legal</h2><ul className="space-y-2">{LEGAL.map(([l, s]) => <li key={s}><a className={a} href={`https://breikobreiko.com/${s}`}>{l}</a></li>)}</ul></div>
