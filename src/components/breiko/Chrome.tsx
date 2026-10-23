@@ -82,7 +82,7 @@ export function SiteFooter() {
       <LineaCarril />
       <div className="mx-auto max-w-[1200px] px-6 pt-12">
         <a href={LINKS.matriz} aria-label="Breiko Breiko, inicio" className="inline-block">
-          <img src={logoBlanco.url} alt="Breiko Breiko" width={80} height={40} className="h-10 w-auto" loading="lazy" />
+          <img src={logoBlanco.url} alt="Breiko Breiko" width={80} height={40} className="h-10 w-auto" />
         </a>
       </div>
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
