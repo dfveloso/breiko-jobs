@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      interes_jobs: {
+        Row: {
+          acepta_novedades: boolean
+          acepta_privacidad: boolean
+          correo: string
+          creado: string
+          empresa: string | null
+          id: string
+          nombre: string | null
+          origen: string | null
+          perfil: string
+          provincia: string | null
+        }
+        Insert: {
+          acepta_novedades?: boolean
+          acepta_privacidad: boolean
+          correo: string
+          creado?: string
+          empresa?: string | null
+          id?: string
+          nombre?: string | null
+          origen?: string | null
+          perfil: string
+          provincia?: string | null
+        }
+        Update: {
+          acepta_novedades?: boolean
+          acepta_privacidad?: boolean
+          correo?: string
+          creado?: string
+          empresa?: string | null
+          id?: string
+          nombre?: string | null
+          origen?: string | null
+          perfil?: string
+          provincia?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
