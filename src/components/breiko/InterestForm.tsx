@@ -71,12 +71,11 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
 
   return (
     <form onSubmit={submit} noValidate>
-      <div role="radiogroup" aria-label="Perfil" className="flex items-stretch overflow-hidden rounded-t-[4px] border-b-2 border-asfalto">
+      <div role="radiogroup" aria-label="Perfil" className="relative grid grid-cols-2 overflow-hidden rounded-t-[4px] border-b-2 border-asfalto">
         {opt("conductor", "Soy conductor")}
-        <span aria-hidden="true" className="flex w-[11px] shrink-0 justify-center bg-asfalto py-[6px]">
-          <span className="block w-[3px]" style={{ backgroundImage: "linear-gradient(to bottom, var(--blanco) 10px, transparent 10px)", backgroundSize: "3px 18px", backgroundRepeat: "repeat-y" }} />
-        </span>
         {opt("empresa", "Soy empresa")}
+        <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-asfalto"
+          style={{ backgroundImage: "linear-gradient(to bottom, var(--blanco) 10px, transparent 10px)", backgroundSize: "3px 18px", backgroundRepeat: "repeat-y", backgroundPosition: "0 4px" }} />
       </div>
       <div className="space-y-5 p-6 sm:p-8">
       <div>
