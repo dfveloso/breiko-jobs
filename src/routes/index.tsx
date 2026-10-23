@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { MapPin, Smartphone, ShieldCheck } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { SiteHeader, SiteFooter, CookieNotice } from "@/components/breiko/Chrome";
 import { InterestForm, type Perfil } from "@/components/breiko/InterestForm";
+import { Placa } from "@/components/breiko/Senal";
 
 const TITLE = "Breiko Jobs · Empleo para conductores profesionales";
-const DESC = "Muy pronto, ofertas de trabajo de conducción dentro de Breiko Breiko. Apúntate y sé de los primeros en enterarte. Gratis para conductores.";
+const DESC = "Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día. Gratis para conductores.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,83 +15,67 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://jobs.breikobreiko.com/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://jobs.breikobreiko.com/" }],
   }),
   component: Index,
 });
 
-const CARDS = [
-  { icon: MapPin, t: "Ofertas pensadas para ti", d: "Según tu zona, tu tipo de vehículo y tus permisos." },
-  { icon: Smartphone, t: "Dentro de la app que ya usas", d: "Sin portales genéricos ni formularios eternos." },
-  { icon: ShieldCheck, t: "Tú decides", d: "Tu perfil solo lo ven las empresas si tú quieres." },
+const PUNTOS = [
+  { t: "Ofertas cerca de tu ruta", d: "Según tu zona, tu tipo de vehículo y tus permisos." },
+  { t: "Dentro de la app que ya usas", d: "Sin portales genéricos ni formularios eternos." },
+  { t: "Tú decides quién te ve", d: "Tu perfil solo lo ven las empresas si tú quieres." },
 ];
 
 function Index() {
   const [perfil, setPerfil] = useState<Perfil>("conductor");
-  const [modal, setModal] = useState(false);
-  const [modalPerfil, setModalPerfil] = useState<Perfil>("conductor");
-  const open = (p: Perfil) => { setModalPerfil(p); setModal(true); };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden bg-papel">
       <SiteHeader />
       <main>
-        <section className="relative overflow-hidden bg-ink pt-40 pb-28 text-center">
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-halo-jobs" />
-          <div className="relative mx-auto max-w-3xl px-5">
-            <span className="inline-block rounded-full border border-jobs/40 bg-jobs/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-jobs">Próximamente</span>
-            <h1 className="mt-6 text-display text-ink-foreground">Empleo para conductores <span className="text-jobs">profesionales</span></h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink-muted">Muy pronto, ofertas de trabajo de conducción dentro de Breiko Breiko, la app de la comunidad de conductores profesionales. Apúntate y serás de los primeros en enterarte.</p>
-            <button type="button" onClick={() => open("conductor")} className="mt-10 rounded-[12px] bg-gradient-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-elegant transition-transform duration-150 hover:-translate-y-0.5">Me interesa</button>
-            <p className="mt-3 text-sm text-ink-muted">Gratis para conductores</p>
+        <section className="mx-auto grid max-w-[1200px] gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20">
+          <div>
+            <Placa producto="jobs" tamano="l" />
+            <h1 className="mt-8 text-[56px] leading-[0.95] text-asfalto lg:text-[100px]">Empleo para conductores profesionales</h1>
+            <p className="mt-6 max-w-[34rem] text-lg text-asfalto">Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día.</p>
+            <p className="mt-6 flex flex-wrap items-center gap-3 text-base">
+              <span className="rounded-[4px] bg-amarillo px-2 py-0.5 font-semibold text-asfalto">Próximamente</span>
+              <span className="text-gris">Gratis para conductores</span>
+            </p>
+          </div>
+          <div id="apuntarme" className="scroll-mt-4 self-start rounded-[6px] border-2 border-asfalto bg-blanco">
+            <h2 className="sr-only">Apúntate</h2>
+            <InterestForm perfil={perfil} onPerfil={setPerfil} idPrefix="page" />
           </div>
         </section>
 
-        <section className="bg-background py-24">
-          <div className="mx-auto grid max-w-6xl gap-5 px-5 md:grid-cols-3">
-            {CARDS.map(({ icon: Icon, t, d }) => (
-              <article key={t} className="rounded-[20px] border border-border bg-card p-7">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-[12px] bg-jobs/15"><Icon className="h-5 w-5 text-foreground" /></span>
-                <h2 className="mt-5 text-[22px] text-foreground">{t}</h2>
-                <p className="mt-2 text-muted-foreground">{d}</p>
-              </article>
+        <section aria-label="Qué será Breiko Jobs" className="mx-auto max-w-[1200px] px-6 pb-16">
+          <ul className="border-t-2 border-asfalto">
+            {PUNTOS.map(({ t, d }) => (
+              <li key={t} className="grid gap-2 border-b border-linea py-7 md:grid-cols-[1fr_1fr] md:gap-10">
+                <h2 className="text-[32px] text-asfalto">{t}</h2>
+                <p className="text-lg text-asfalto md:pt-1">{d}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
-        <section className="bg-background pb-24">
-          <div className="mx-auto flex max-w-4xl flex-col items-start gap-5 rounded-[20px] border border-ink-border bg-ink p-8 sm:flex-row sm:items-center sm:justify-between">
+        <section className="border-y-2 border-asfalto bg-blanco">
+          <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-[22px] text-ink-foreground">¿Buscas conductores?</h2>
-              <p className="mt-2 max-w-xl text-ink-muted">Si eres una empresa y necesitas conductores, apúntate también y te contaremos las novedades.</p>
+              <h2 className="text-[42px] text-asfalto">¿Buscas conductores?</h2>
+              <p className="mt-3 max-w-[38rem] text-lg text-asfalto">Si tu empresa necesita conductores, apúntate también y te contaremos las novedades.</p>
             </div>
-            <button type="button" onClick={() => open("empresa")} className="shrink-0 rounded-[12px] border border-jobs/50 px-5 py-3 font-semibold text-ink-foreground transition-colors duration-150 hover:bg-jobs/10">Apuntarme como empresa</button>
+            <a href="#apuntarme" onClick={() => setPerfil("empresa")} className="shrink-0 rounded-[6px] border-2 border-asfalto px-5 py-3 text-lg font-semibold text-asfalto hover:bg-asfalto hover:text-blanco">Apuntar mi empresa</a>
           </div>
         </section>
-
-        <section id="me-interesa" className="scroll-mt-16 bg-ink py-24">
-          <div className="mx-auto max-w-xl px-5">
-            <h2 className="text-center text-[32px] text-ink-foreground sm:text-5xl">Me interesa</h2>
-            <p className="mt-3 text-center text-ink-muted">Déjanos tu correo y te avisamos del lanzamiento.</p>
-            <div className="mt-10 rounded-[20px] border border-ink-border bg-ink-surface p-6 sm:p-8">
-              <InterestForm perfil={perfil} onPerfil={setPerfil} idPrefix="page" />
-            </div>
-          </div>
-        </section>
+        <div className="h-16" />
       </main>
       <SiteFooter />
       <CookieNotice />
-
-      <Dialog open={modal} onOpenChange={setModal}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-[20px] border-ink-border bg-ink-surface text-ink-foreground">
-          <DialogTitle className="text-[22px] font-extrabold tracking-tight">Me interesa</DialogTitle>
-          <DialogDescription className="text-ink-muted">Te avisaremos en cuanto Breiko Jobs esté disponible.</DialogDescription>
-          <InterestForm key={String(modal)} perfil={modalPerfil} onPerfil={setModalPerfil} idPrefix="modal" />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
