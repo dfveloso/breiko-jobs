@@ -38,8 +38,8 @@ function Index() {
       <main>
         <section className="mx-auto grid max-w-[1200px] gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20">
           <div>
-            <Placa producto="jobs" tamano="l" />
-            <h1 className="mt-8 text-[56px] leading-[0.95] text-asfalto lg:text-[100px]">Empleo para conductores profesionales</h1>
+            <div className="mb-8 hidden lg:block"><Placa producto="jobs" tamano="l" /></div>
+            <h1 className="text-[56px] leading-[0.95] text-asfalto lg:text-[100px]">Empleo para conductores profesionales</h1>
             <p className="mt-6 max-w-[34rem] text-lg text-asfalto">Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día.</p>
             <p className="mt-6 flex flex-wrap items-center gap-3 text-base">
               <span className="rounded-[4px] bg-amarillo px-2 py-0.5 font-semibold text-asfalto">Próximamente</span>
