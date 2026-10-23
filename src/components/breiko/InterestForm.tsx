@@ -37,10 +37,14 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
       acepta_privacidad: fd.get("privacidad") === "on",
       acepta_novedades: fd.get("novedades") === "on",
     });
-    if (!parsed.success) { setError(parsed.error.issues[0].message); return; }
+    if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? "Revisa el formulario"); return; }
     const utm = new URLSearchParams(window.location.search).get("utm_source")?.slice(0, 100) || null;
+    const d = parsed.data;
     setSending(true);
-    const { error: dbErr } = await supabase.from("interes_jobs").insert({ ...parsed.data, origen: utm });
+    const { error: dbErr } = await supabase.from("interes_jobs").insert({
+      perfil: d.perfil, correo: d.correo, nombre: d.nombre ?? null, provincia: d.provincia ?? null,
+      empresa: d.empresa ?? null, acepta_privacidad: true, acepta_novedades: d.acepta_novedades, origen: utm,
+    });
     setSending(false);
     if (dbErr && dbErr.code !== "23505") { setError("No hemos podido guardar tus datos. Inténtalo de nuevo."); return; }
     setDone(true);
