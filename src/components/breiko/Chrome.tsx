@@ -79,8 +79,8 @@ export function SiteFooter() {
   const a = "text-base text-blanco/85 underline-offset-4 hover:underline";
   return (
     <footer className="bg-asfalto text-blanco">
-      <LineaCarril />
-      <div className="mx-auto max-w-[1200px] px-6 pt-12">
+      <div className="pt-[28px]"><LineaCarril /></div>
+      <div className="mx-auto max-w-[1200px] px-6 pt-[28px]">
         <a href={LINKS.matriz} aria-label="Breiko Breiko, inicio" className="inline-block">
           <img src={logoBlanco.url} alt="Breiko Breiko" width={80} height={40} className="h-10 w-auto" />
         </a>
@@ -91,7 +91,9 @@ export function SiteFooter() {
         <div><h2 className={h}>Legal</h2><ul className="space-y-2">{LEGAL.map(([l, s]) => <li key={s}><a className={a} href={`https://breikobreiko.com/${s}`}>{l}</a></li>)}</ul></div>
         <div><h2 className={h}>Descarga la app</h2><StoreButtons oscuro /></div>
       </div>
-      <p className="mx-auto max-w-[1200px] border-t border-blanco/20 px-6 py-6 text-base text-blanco/85">© 2026 Breiko Breiko Apps, S.L., CIF B02736890, Camariñas (A Coruña)</p>
+      <div className="mx-auto max-w-[1200px] px-6">
+        <p className="border-t border-blanco/20 py-6 text-base text-blanco/85">© 2026 Breiko Breiko Apps, S.L., CIF B02736890, Camariñas (A Coruña)</p>
+      </div>
     </footer>
   );
 }

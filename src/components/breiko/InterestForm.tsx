@@ -73,8 +73,9 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
     <form onSubmit={submit} noValidate>
       <div role="radiogroup" aria-label="Perfil" className="flex items-stretch overflow-hidden rounded-t-[4px] border-b-2 border-asfalto">
         {opt("conductor", "Soy conductor")}
-        <span aria-hidden="true" className="w-1 shrink-0 bg-asfalto"
-          style={{ backgroundImage: "linear-gradient(to bottom, var(--blanco) 12px, transparent 12px)", backgroundSize: "4px 20px", backgroundPosition: "0 4px" }} />
+        <span aria-hidden="true" className="flex w-[11px] shrink-0 justify-center bg-asfalto py-[6px]">
+          <span className="block w-[3px]" style={{ backgroundImage: "linear-gradient(to bottom, var(--blanco) 10px, transparent 10px)", backgroundSize: "3px 18px", backgroundRepeat: "repeat-y" }} />
+        </span>
         {opt("empresa", "Soy empresa")}
       </div>
       <div className="space-y-5 p-6 sm:p-8">
