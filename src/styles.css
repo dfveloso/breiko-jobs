@@ -78,6 +78,7 @@
 .escena .tarjeta-form p{color:#4A5568;max-width:none}
 @media (max-width:760px){.velo{background:linear-gradient(0deg,rgba(10,18,34,.94) 0%,rgba(10,18,34,.84) 65%,rgba(10,18,34,.55) 100%)}.velo-der{display:none}.velo-izq{opacity:1!important}
 .escena,.escena.derecha{min-height:auto;grid-template-columns:minmax(0,1fr);gap:28px;padding-top:30vh;padding-bottom:72px}.escena.derecha .copia,.escena.derecha .lateral{grid-column:auto;grid-row:auto}
-.copia,.lateral{position:static;padding-bottom:0}.escena h1{font-size:40px}.escena h2{font-size:32px}}
+.copia,.lateral{position:static;padding-bottom:0}.escena h1{font-size:40px}.escena h2{font-size:32px}
+.perfil-opt{font-size:18px;padding-block:16px;white-space:nowrap}}
 @media (prefers-reduced-motion:reduce){.fondos img{transform:none!important}.velo-der{display:none}.velo-izq{opacity:1!important}
   *, *::before, *::after { transition: none !important; animation: none !important; }}
