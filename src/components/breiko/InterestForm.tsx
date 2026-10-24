@@ -65,7 +65,7 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
   const link = "text-noche underline";
   const opt = (p: Perfil, text: string) => (
     <button type="button" role="radio" aria-checked={perfil === p} onClick={() => onPerfil(p)}
-      className={`flex-1 px-3 py-5 font-display text-[22px] font-semibold leading-none [font-stretch:108%] transition-colors ${perfil === p ? "bg-noche text-blanco" : "bg-suave text-noche hover:bg-campo"}`}>
+      className={`perfil-opt flex-1 px-3 py-5 font-display text-[22px] font-semibold leading-none [font-stretch:108%] transition-colors ${perfil === p ? "bg-noche text-blanco" : "bg-suave text-noche hover:bg-campo"}`}>
       {text}
     </button>
   );
