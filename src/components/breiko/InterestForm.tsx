@@ -52,30 +52,29 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
   if (done) {
     return (
       <div role="status" className="p-6 sm:p-8">
-        <p className="font-display text-[42px] font-bold leading-none text-asfalto">Apuntado.</p>
-        <p className="mt-3 text-lg text-asfalto">Te avisaremos en cuanto Breiko Jobs esté disponible.</p>
-        <p className="mt-6 text-base text-gris">Mientras tanto, descarga la app:</p>
-        <StoreButtons className="mt-3" />
+        <p className="font-display text-[44px] font-extrabold leading-none [font-stretch:108%] !text-noche">Apuntado.</p>
+        <p className="mt-3 text-lg !text-noche">Te avisaremos en cuanto Breiko Jobs esté disponible.</p>
+        <p className="mt-6 text-base">Mientras tanto, descarga la app:</p>
+        <StoreButtons className="mt-3" variante="oscura" />
       </div>
     );
   }
 
-  const input = "mt-1.5 w-full rounded-[6px] border-2 border-gris bg-blanco px-3.5 py-2.5 text-base text-asfalto focus:border-asfalto";
-  const label = "text-base font-semibold text-asfalto";
+  const input = "mt-1.5 min-h-12 w-full rounded-[10px] border-[1.5px] border-campo bg-blanco px-3.5 py-2.5 text-base text-noche";
+  const label = "text-base font-semibold text-noche";
+  const link = "text-noche underline";
   const opt = (p: Perfil, text: string) => (
     <button type="button" role="radio" aria-checked={perfil === p} onClick={() => onPerfil(p)}
-      className={`flex-1 px-3 py-5 font-display text-[24px] font-bold leading-none transition-colors duration-150 ${perfil === p ? "bg-asfalto text-blanco" : "bg-blanco text-asfalto hover:bg-papel"}`}>
+      className={`flex-1 px-3 py-5 font-display text-[22px] font-semibold leading-none [font-stretch:108%] transition-colors ${perfil === p ? "bg-noche text-blanco" : "bg-suave text-noche hover:bg-campo"}`}>
       {text}
     </button>
   );
 
   return (
     <form onSubmit={submit} noValidate>
-      <div role="radiogroup" aria-label="Perfil" className="relative grid grid-cols-2 overflow-hidden rounded-t-[4px] border-b-2 border-asfalto">
+      <div role="radiogroup" aria-label="Perfil" className="grid grid-cols-2">
         {opt("conductor", "Soy conductor")}
         {opt("empresa", "Soy empresa")}
-        <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-asfalto"
-          style={{ backgroundImage: "linear-gradient(to bottom, var(--blanco) 10px, transparent 10px)", backgroundSize: "3px 18px", backgroundRepeat: "repeat-y", backgroundPosition: "0 4px" }} />
       </div>
       <div className="space-y-5 p-6 sm:p-8">
       <div>
@@ -104,20 +103,20 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label>No rellenar<input name="web" tabIndex={-1} autoComplete="off" /></label>
       </div>
-      <label className="flex items-start gap-3 text-base text-asfalto">
-        <input type="checkbox" name="privacidad" required className="mt-1 h-5 w-5 shrink-0 accent-asfalto" />
-        <span>He leído la <a href={LINKS.privacidad} target="_blank" rel="noopener noreferrer" className="text-azul underline">política de privacidad</a> (obligatorio)</span>
+      <label className="flex items-start gap-3 text-base text-noche">
+        <input type="checkbox" name="privacidad" required className="mt-1 h-5 w-5 shrink-0 accent-noche" />
+        <span>He leído la <a href={LINKS.privacidad} target="_blank" rel="noopener noreferrer" className={link}>política de privacidad</a> (obligatorio)</span>
       </label>
-      <label className="flex items-start gap-3 text-base text-asfalto">
-        <input type="checkbox" name="novedades" className="mt-1 h-5 w-5 shrink-0 accent-asfalto" />
+      <label className="flex items-start gap-3 text-base text-noche">
+        <input type="checkbox" name="novedades" className="mt-1 h-5 w-5 shrink-0 accent-noche" />
         <span>Quiero recibir novedades de Breiko Breiko por correo</span>
       </label>
-      {error && <p role="alert" className="text-base font-semibold text-destructive">{error}</p>}
-      <button type="submit" disabled={sending} className="w-full rounded-[6px] bg-azul px-5 py-3.5 text-lg font-semibold text-blanco hover:bg-asfalto disabled:opacity-60">
+      {error && <p role="alert" className="text-base font-semibold !text-destructive">{error}</p>}
+      <button type="submit" disabled={sending} className="pill pill-oscura w-full disabled:opacity-60">
         {sending ? "Enviando…" : "Apuntarme"}
       </button>
-      <p className="text-base leading-relaxed text-gris">
-        Responsable: Breiko Breiko Apps, S.L. Usaremos tus datos solo para avisarte del lanzamiento de Breiko Jobs y, si lo marcas, enviarte novedades. Puedes pedir su borrado en <a className="text-azul underline" href={`mailto:${LINKS.email}`}>{LINKS.email}</a>.
+      <p className="text-base leading-relaxed">
+        Responsable: Breiko Breiko Apps, S.L. Usaremos tus datos solo para avisarte del lanzamiento de Breiko Jobs y, si lo marcas, enviarte novedades. Puedes pedir su borrado en <a className={link} href={`mailto:${LINKS.email}`}>{LINKS.email}</a>.
       </p>
       </div>
     </form>
