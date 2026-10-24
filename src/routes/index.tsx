@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SiteHeader, SiteFooter, CookieNotice } from "@/components/breiko/Chrome";
 import { InterestForm, type Perfil } from "@/components/breiko/InterestForm";
-import { Placa } from "@/components/breiko/Senal";
+import fAutobus from "@/assets/jobs-fondo-autobus.webp.asset.json";
+import fCamionero from "@/assets/jobs-fondo-camionero.webp.asset.json";
+import fFlota from "@/assets/jobs-fondo-flota.webp.asset.json";
 
 const TITLE = "Breiko Jobs · Empleo para conductores profesionales";
 const DESC = "Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día. Gratis para conductores.";
@@ -29,50 +31,89 @@ const PUNTOS = [
   { t: "Tú decides quién te ve", d: "Tu perfil solo lo ven las empresas si tú quieres." },
 ];
 
+const FOTOS = [
+  { src: fAutobus.url, pos: "65% 40%" },
+  { src: fCamionero.url, pos: "35% 40%" },
+  { src: fFlota.url, pos: "60% 55%" },
+];
+
 function Index() {
   const [perfil, setPerfil] = useState<Perfil>("conductor");
+  const fondos = useRef<HTMLDivElement>(null);
+  const vIzqRef = useRef<HTMLDivElement>(null);
+  const vDerRef = useRef<HTMLDivElement>(null);
+  const portada = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const secs = Array.from(portada.current!.querySelectorAll<HTMLElement>("section.escena"));
+    const imgs = Array.from(fondos.current!.querySelectorAll<HTMLImageElement>("img"));
+    const vIzq = vIzqRef.current!, vDer = vDerRef.current!;
+    const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const update = () => {
+      const y = scrollY + innerHeight * 0.5;
+      let p = 0;
+      secs.forEach((s, i) => { const a = s.offsetTop, b = a + s.offsetHeight; if (y >= a) p = i + Math.max(0, Math.min(1, ((y - a) / (b - a) - 0.55) / 0.45)); });
+      imgs.forEach((img, k) => {
+        img.style.opacity = String(k === 0 ? 1 : Math.max(0, Math.min(1, p - (k - 1))));
+        if (!reducido) img.style.transform = `scale(${1.1 - 0.1 * Math.max(0, Math.min(1, (p - k + 1) / 2))})`;
+      });
+      if (!reducido) {
+        const der = Math.min(1, secs.reduce((t, s, i) => t + (s.classList.contains("derecha") ? Math.max(0, 1 - Math.abs(p - i)) : 0), 0));
+        vDer.style.opacity = String(der);
+        vIzq.style.opacity = String(1 - der);
+      }
+    };
+    let raf = 0;
+    const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
+    update();
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    return () => { cancelAnimationFrame(raf); removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); };
+  }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-papel">
+    <div className="min-h-screen bg-noche">
       <SiteHeader />
-      <main>
-        <section className="mx-auto grid max-w-[1200px] gap-12 px-6 py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20">
-          <div>
-            <div className="mb-8 hidden lg:block"><Placa producto="jobs" tamano="l" /></div>
-            <h1 className="text-[56px] leading-[0.95] text-asfalto lg:text-[100px]">Empleo para conductores profesionales</h1>
-            <p className="mt-6 max-w-[34rem] text-lg text-asfalto">Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día.</p>
-            <p className="mt-6 flex flex-wrap items-center gap-3 text-base">
-              <span className="rounded-[4px] bg-amarillo px-2 py-0.5 font-semibold text-asfalto">Próximamente</span>
-              <span className="text-gris">Gratis para conductores</span>
-            </p>
-          </div>
-          <div id="apuntarme" className="scroll-mt-4 self-start rounded-[6px] border-2 border-asfalto bg-blanco">
-            <h2 className="sr-only">Apúntate</h2>
-            <InterestForm perfil={perfil} onPerfil={setPerfil} idPrefix="page" />
-          </div>
-        </section>
-
-        <section aria-label="Qué será Breiko Jobs" className="mx-auto max-w-[1200px] px-6 pb-16">
-          <ul className="border-t-2 border-asfalto">
-            {PUNTOS.map(({ t, d }) => (
-              <li key={t} className="grid gap-2 border-b border-linea py-7 md:grid-cols-[1fr_1fr] md:gap-10">
-                <h2 className="text-[32px] text-asfalto">{t}</h2>
-                <p className="text-lg text-asfalto md:pt-1">{d}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="border-y-2 border-asfalto bg-blanco">
-          <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-[42px] text-asfalto">¿Buscas conductores?</h2>
-              <p className="mt-3 max-w-[38rem] text-lg text-asfalto">Si tu empresa necesita conductores, apúntate también y te contaremos las novedades.</p>
+      <div className="fondos" ref={fondos} aria-hidden="true">
+        {FOTOS.map((f, i) => <img key={f.src} src={f.src} alt="" style={{ objectPosition: f.pos }} loading={i === 0 ? "eager" : "lazy"} decoding="async" />)}
+      </div>
+      <div className="velo velo-izq" ref={vIzqRef} aria-hidden="true" />
+      <div className="velo velo-der" ref={vDerRef} aria-hidden="true" />
+      <main id="contenido" className="portada" ref={portada}>
+        <section className="escena">
+          <div className="copia">
+            <p className="prod"><i aria-hidden="true" />Breiko Jobs</p>
+            <h1>Empleo para conductores profesionales</h1>
+            <p className="text-lg">Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día.</p>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-base">
+              <span className="rounded-full border-[1.5px] border-jobs px-3 py-1 font-medium text-blanco">Próximamente</span>
+              <span className="text-nota">Gratis para conductores</span>
             </div>
-            <a href="#apuntarme" onClick={() => setPerfil("empresa")} className="shrink-0 rounded-[6px] border-2 border-asfalto px-5 py-3 text-lg font-semibold text-asfalto hover:bg-asfalto hover:text-blanco">Apuntar mi empresa</a>
+          </div>
+          <div id="apuntarme" className="lateral scroll-mt-24">
+            <div className="tarjeta-form">
+              <h2 className="sr-only">Apúntate</h2>
+              <InterestForm perfil={perfil} onPerfil={setPerfil} idPrefix="page" />
+            </div>
           </div>
         </section>
-        <div className="h-16" />
+
+        <section className="escena derecha">
+          <div className="copia">
+            <h2>Lo que estamos preparando</h2>
+            <ul className="lista-escena">
+              {PUNTOS.map(({ t, d }) => <li key={t}><h3>{t}</h3><p>{d}</p></li>)}
+            </ul>
+          </div>
+        </section>
+
+        <section className="escena">
+          <div className="copia">
+            <h2>¿Buscas conductores?</h2>
+            <p className="text-lg">Si tu empresa necesita conductores, apúntate también y te contaremos las novedades.</p>
+            <a href="#apuntarme" onClick={() => setPerfil("empresa")} className="pill pill-primary mt-8">Apuntar mi empresa</a>
+          </div>
+        </section>
       </main>
       <SiteFooter />
       <CookieNotice />
