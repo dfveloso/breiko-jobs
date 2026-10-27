@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
 });
 
 const PUNTOS = [
-  { t: "Ofertas cerca de tu ruta", d: "Según tu zona, tu tipo de vehículo y tus permisos." },
+  { t: "Ofertas cerca de ti", d: "Según tu zona, tu tipo de vehículo y tus permisos." },
   { t: "Dentro de la app que ya usas", d: "Sin portales genéricos ni formularios eternos." },
   { t: "Tu perfil, bajo tu control", d: "Tu perfil no será público: tú decidirás qué compartes." },
 ];
