@@ -40,14 +40,14 @@ export function SiteHeader() {
   }, []);
   const lnk = "rounded-full px-3 py-2 text-base font-medium text-blanco hover:bg-white/10";
   return (
-    <header className="fixed inset-x-0 top-0 z-50 h-[72px] bg-[rgba(10,18,34,.78)] backdrop-blur-md">
+    <header className="site-header fixed inset-x-0 top-0 z-50 h-[72px] backdrop-blur-md">
       <a href="#contenido" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-blanco focus:px-4 focus:py-2 focus:text-noche">Saltar al contenido</a>
       <nav ref={ref} className="flex h-full items-center justify-between gap-2 px-[clamp(16px,4vw,56px)]" aria-label="Principal">
         <span className="flex min-w-0 items-center gap-3">
           <a href={LINKS.matriz} aria-label="Breiko Breiko, inicio" className="shrink-0">
             <img src={logoBlanco.url} alt="Breiko Breiko" width={64} height={32} className="h-8 w-auto" />
           </a>
-          <span className="flex items-center gap-2 font-display text-[20px] font-semibold [font-stretch:108%]"><Cuadro c="bg-jobs" />Jobs</span>
+          <a href="/" className="flex items-center gap-2 font-display text-[20px] font-semibold [font-stretch:108%]"><Cuadro c="bg-jobs" />Jobs</a>
         </span>
         <div className="flex items-center gap-1 sm:gap-2">
           <div className="relative hidden md:block">
@@ -124,17 +124,37 @@ export function SiteFooter() {
 
 export function CookieNotice() {
   const [show, setShow] = useState(false);
+  const noticeRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setShow(localStorage.getItem("bb-cookies") !== "ok");
     const open = () => setShow(true);
     window.addEventListener("bb-cookies-open", open);
     return () => window.removeEventListener("bb-cookies-open", open);
   }, []);
+  useEffect(() => {
+    const notice = noticeRef.current;
+    const root = document.documentElement;
+    if (!show || !notice) {
+      root.style.setProperty("--cookie-reserve", "0px");
+      return;
+    }
+    const measure = () => {
+      const bottom = Number.parseFloat(getComputedStyle(notice).bottom) || 0;
+      root.style.setProperty("--cookie-reserve", `${Math.ceil(notice.getBoundingClientRect().height + bottom + 12)}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(notice);
+    measure();
+    return () => {
+      observer.disconnect();
+      root.style.setProperty("--cookie-reserve", "0px");
+    };
+  }, [show]);
   if (!show) return null;
   return (
-    <div role="region" aria-label="Aviso de cookies" className="fixed bottom-3 left-3 right-3 z-50 flex items-center gap-3 rounded-2xl border border-white/15 bg-panel p-3 text-sm text-secundario shadow-2xl sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-md sm:p-4 sm:text-base">
+    <div ref={noticeRef} role="region" aria-label="Aviso de cookies" className="cookie-notice fixed bottom-3 left-3 right-3 z-50 flex items-center gap-3 rounded-2xl border border-border bg-panel p-3 text-sm text-secundario shadow-2xl sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-md sm:p-4 sm:text-base">
       <p className="flex-1">Solo usamos almacenamiento técnico necesario. <a className="text-blanco underline" href={LINKS.cookies}>Política de cookies</a></p>
-      <button type="button" onClick={() => { localStorage.setItem("bb-cookies", "ok"); setShow(false); }} className="pill pill-primary !min-h-[44px] !px-4">Entendido</button>
+      <button type="button" onClick={() => { localStorage.setItem("bb-cookies", "ok"); setShow(false); }} className="pill pill-primary cookie-action">Entendido</button>
     </div>
   );
 }
