@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
 const PUNTOS = [
   { t: "Ofertas cerca de tu ruta", d: "Según tu zona, tu tipo de vehículo y tus permisos." },
   { t: "Dentro de la app que ya usas", d: "Sin portales genéricos ni formularios eternos." },
-  { t: "Tú decides quién te ve", d: "Tu perfil solo lo ven las empresas si tú quieres." },
+  { t: "Tu perfil, bajo tu control", d: "Tu perfil no será público: tú decidirás qué compartes." },
 ];
 
 const FOTOS = [
@@ -43,11 +43,28 @@ function Index() {
   const vIzqRef = useRef<HTMLDivElement>(null);
   const vDerRef = useRef<HTMLDivElement>(null);
   const portada = useRef<HTMLDivElement>(null);
+  const lateral = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const secs = Array.from(portada.current!.querySelectorAll<HTMLElement>("section.escena"));
-    const imgs = Array.from(fondos.current!.querySelectorAll<HTMLImageElement>("img"));
-    const vIzq = vIzqRef.current!, vDer = vDerRef.current!;
+    const container = lateral.current;
+    const card = container?.querySelector<HTMLElement>(".tarjeta-form");
+    if (!container || !card) return;
+    const update = () => {
+      container.classList.toggle("lateral-static", card.getBoundingClientRect().height > window.innerHeight - 112 - 24);
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(card);
+    window.addEventListener("resize", update);
+    update();
+    return () => { observer.disconnect(); window.removeEventListener("resize", update); };
+  }, []);
+
+  useEffect(() => {
+    const sceneRoot = portada.current, imageRoot = fondos.current;
+    const vIzq = vIzqRef.current, vDer = vDerRef.current;
+    if (!sceneRoot || !imageRoot || !vIzq || !vDer) return;
+    const secs = Array.from(sceneRoot.querySelectorAll<HTMLElement>("section.escena"));
+    const imgs = Array.from(imageRoot.querySelectorAll<HTMLImageElement>("img"));
     const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const update = () => {
       const y = scrollY + innerHeight * 0.5;
@@ -57,11 +74,9 @@ function Index() {
         img.style.opacity = String(k === 0 ? 1 : Math.max(0, Math.min(1, p - (k - 1))));
         if (!reducido) img.style.transform = `scale(${1.1 - 0.1 * Math.max(0, Math.min(1, (p - k + 1) / 2))})`;
       });
-      if (!reducido) {
-        const der = Math.min(1, secs.reduce((t, s, i) => t + (s.classList.contains("derecha") ? Math.max(0, 1 - Math.abs(p - i)) : 0), 0));
-        vDer.style.opacity = String(der);
-        vIzq.style.opacity = String(1 - der);
-      }
+      const der = Math.min(1, secs.reduce((t, s, i) => t + (s.classList.contains("derecha") ? Math.max(0, 1 - Math.abs(p - i)) : 0), 0));
+      vDer.style.opacity = String(der);
+      vIzq.style.opacity = String(1 - der);
     };
     let raf = 0;
     const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
@@ -90,7 +105,7 @@ function Index() {
               <span className="text-nota">Gratis para conductores</span>
             </div>
           </div>
-          <div id="apuntarme" className="lateral scroll-mt-24">
+           <div id="apuntarme" ref={lateral} className="lateral scroll-mt-28">
             <div className="tarjeta-form">
               <h2 className="sr-only">Apúntate</h2>
               <InterestForm perfil={perfil} onPerfil={setPerfil} idPrefix="page" />
