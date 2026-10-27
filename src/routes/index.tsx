@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { SiteHeader, SiteFooter, CookieNotice } from "@/components/breiko/Chrome";
 import { InterestForm, type Perfil } from "@/components/breiko/InterestForm";
 import fAutobus from "@/assets/jobs-fondo-autobus.webp.asset.json";
-import fCamionero from "@/assets/jobs-fondo-camionero.webp.asset.json";
+import fCabina from "@/assets/jobs-fondo-cabina.webp.asset.json";
 import fFlota from "@/assets/jobs-fondo-flota.webp.asset.json";
 
 const TITLE = "Breiko Jobs · Empleo para conductores profesionales";
@@ -32,8 +32,8 @@ const PUNTOS = [
 ];
 
 const FOTOS = [
-  { src: fCamionero.url, pos: "45% 100%" },
-  { src: fAutobus.url, pos: "40% 40%" },
+  { src: fAutobus.url, pos: "65% 40%" },
+  { src: fCabina.url, pos: "35% 45%" },
   { src: fFlota.url, pos: "60% 55%" },
 ];
 
