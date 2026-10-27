@@ -125,7 +125,7 @@ function Index() {
         <section className="escena">
           <div className="copia">
             <h2>¿Buscas conductores?</h2>
-            <p className="text-lg">Si tu empresa necesita conductores, apúntate también y te contaremos las novedades.</p>
+            <p className="text-lg">Si tu empresa necesita conductores, apúntate y te contaremos las novedades.</p>
             <a href="#apuntarme" onClick={() => setPerfil("empresa")} className="pill pill-primary mt-8">Apuntar mi empresa</a>
           </div>
         </section>
