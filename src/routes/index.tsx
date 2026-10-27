@@ -32,7 +32,7 @@ const PUNTOS = [
 ];
 
 const FOTOS = [
-  { src: fCamionero.url, pos: "20% 35%" },
+  { src: fCamionero.url, pos: "45% 100%" },
   { src: fAutobus.url, pos: "40% 40%" },
   { src: fFlota.url, pos: "60% 55%" },
 ];
