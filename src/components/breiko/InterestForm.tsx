@@ -41,13 +41,23 @@ export function InterestForm({ perfil, onPerfil, idPrefix = "f" }: { perfil: Per
     const utm = new URLSearchParams(window.location.search).get("utm_source")?.slice(0, 100) || null;
     const d = parsed.data;
     setSending(true);
-    const { error: dbErr } = await supabase.from("interes_jobs").insert({
-      perfil: d.perfil, correo: d.correo, nombre: d.nombre ?? null, provincia: d.provincia ?? null,
-      empresa: d.empresa ?? null, acepta_privacidad: true, acepta_novedades: d.acepta_novedades, origen: utm,
-    });
-    setSending(false);
-    if (dbErr && dbErr.code !== "23505") { setError("No hemos podido guardar tus datos. Inténtalo de nuevo."); return; }
-    setDone(true);
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          perfil: d.perfil, correo: d.correo, nombre: d.nombre ?? null, provincia: d.provincia ?? null,
+          empresa: d.empresa ?? null, acepta_privacidad: true, acepta_novedades: d.acepta_novedades, origen: utm,
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (data?.ok) { setDone(true); return; }
+      setError(data?.error ?? "No hemos podido guardar tus datos. Inténtalo de nuevo.");
+    } catch {
+      setError("No hemos podido guardar tus datos. Inténtalo de nuevo.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (done) {
