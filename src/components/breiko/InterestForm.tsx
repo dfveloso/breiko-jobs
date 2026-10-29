@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import { LINKS, PROVINCIAS } from "@/lib/provincias";
 import { StoreButtons } from "./Chrome";
+
+const ENDPOINT = "https://ws.breikobreiko.com/breiko-ws/ws/jobs_interes.php";
 
 export type Perfil = "conductor" | "empresa";
 
