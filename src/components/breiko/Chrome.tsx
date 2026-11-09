@@ -56,7 +56,6 @@ export function SiteHeader() {
             </button>
             {open === "prod" && <ListaProductos id="menu-productos" />}
           </div>
-          <a href="https://breikobreiko.com/empresa" className={`hidden md:block ${lnk}`}>Empresa</a>
           <div className="relative md:hidden">
             <button type="button" aria-label="Menú" aria-expanded={open === "movil"} aria-controls="menu-movil" onClick={() => setOpen(open === "movil" ? null : "movil")} className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10">
               <Menu className="h-5 w-5" aria-hidden="true" />
@@ -67,11 +66,9 @@ export function SiteHeader() {
                 {PRODUCTS.map((p) => (
                   <a key={p.id} href={p.href} className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-white/10"><Cuadro c={p.color} />Breiko {p.nombre}</a>
                 ))}
-                <a href="https://breikobreiko.com/empresa" className="mt-1 block rounded-xl border-t border-white/10 px-3 py-2.5 hover:bg-white/10">Empresa</a>
               </div>
             )}
           </div>
-          <a href="#apuntarme" className="pill pill-primary !min-h-[44px] !px-4 sm:!px-6">Apuntarme</a>
         </div>
       </nav>
     </header>

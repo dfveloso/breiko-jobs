@@ -226,7 +226,7 @@ select.campo option{background:var(--panel);color:var(--blanco)}
 @media (prefers-reduced-motion:reduce){.asistente-cuerpo{animation:none}}
 
 /* «Cómo funciona» de la portada (ComoFunciona.tsx) */
-.cf{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(72px,10vw,144px);padding:clamp(72px,9vw,136px) clamp(16px,4vw,56px);background:var(--noche);color-scheme:dark;scroll-margin-top:72px}
+.cf{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(72px,10vw,144px);padding:clamp(72px,9vw,136px) clamp(16px,4vw,56px);background:var(--noche);color-scheme:dark;scroll-margin-top:-40px}
 .cf-h2{font-size:62px;line-height:1;text-wrap:balance}
 .cf-sub{margin-top:16px;font-size:20px;color:var(--secundario)}
 .cf-riel{display:flex;gap:8px;margin-top:40px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;position:relative}
