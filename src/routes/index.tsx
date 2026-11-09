@@ -3,9 +3,9 @@ import { SiteHeader, SiteFooter, CookieNotice } from "@/components/breiko/Chrome
 import { ComoFunciona } from "@/components/breiko/ComoFunciona";
 import fFlota from "@/assets/jobs-fondo-flota.webp.asset.json";
 
-const TITLE = "Breiko Jobs · Empleo para conductores profesionales";
+const TITLE = "Breiko Jobs · Encuentra conductores profesionales";
 const DESC =
-  "Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko. Apúntate y te avisamos el primer día. Gratis para conductores.";
+  "Publica tu oferta gratis y sin cuenta. Llega a los conductores que encajan y paga solo por los perfiles que quieras ver.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
