@@ -7,6 +7,17 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Solo en local (npm run dev:local, modo xampp): las imágenes de src/assets viven en el
+  // almacenamiento de Lovable, así que se piden a la web publicada.
+  ...(process.argv.includes("xampp")
+    ? {
+        vite: {
+          server: {
+            proxy: { "/__l5e": { target: "https://jobs.breikobreiko.com", changeOrigin: true } },
+          },
+        },
+      }
+    : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

@@ -90,3 +90,199 @@ html{scroll-padding-top:112px;scroll-padding-bottom:var(--cookie-reserve)}
 @media (min-width:761px) and (max-width:1100px){.escena h1{font-size:56px}.escena h2{font-size:44px}}
 @media (prefers-reduced-motion:reduce){.fondos img{transform:none!important}
   *, *::before, *::after { transition: none !important; animation: none !important; }}
+
+/* ── Asistente para publicar ofertas (/publicar, /oferta/publicada) ── */
+.asistente{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:72px;align-items:start;padding:120px clamp(16px,4vw,56px) 96px;min-height:100vh}
+.asistente-una{grid-template-columns:minmax(0,760px)}
+.asistente,.oferta-pagina{color-scheme:dark}
+.asistente-h1,.oferta-h1,.oferta-tarjeta-titulo{text-wrap:balance;overflow-wrap:anywhere}
+.opcion,.contador-btn,.asistente-nav .pill{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.asistente-pregunta{min-width:0;max-width:760px}
+.asistente-progreso{display:flex;align-items:center;gap:16px;margin-bottom:40px;font-size:15px;color:var(--nota)}
+.asistente-progreso .barra{flex:1;max-width:320px;height:6px;border-radius:999px;background:var(--panel);overflow:hidden}
+.asistente-progreso .barra span{display:block;height:100%;background:var(--jobs);border-radius:999px;transition:width .35s cubic-bezier(.2,.7,.2,1)}
+.asistente-h1{font-size:56px;line-height:1.02;letter-spacing:-.02em;outline:none}
+.asistente-sub{margin-top:20px;font-size:19px;color:var(--secundario);max-width:36em}
+.asistente-controles{margin-top:40px;display:grid;gap:32px}
+.asistente-cuerpo{animation:entra .32s cubic-bezier(.2,.7,.2,1) both}
+@keyframes entra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.grupo{border:0;padding:0;margin:0;min-width:0}
+.grupo:disabled{opacity:.45}
+.grupo-etiqueta{font-family:var(--font-display);font-stretch:108%;font-weight:600;font-size:20px;color:var(--blanco);margin-bottom:14px;padding:0}
+.opciones{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opciones-grandes{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opciones-compactas{display:flex;flex-wrap:wrap}
+.opcion{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:64px;padding:16px 20px;border-radius:14px;background:var(--panel);color:var(--blanco);cursor:pointer;transition:background-color .15s,color .15s,transform .15s}
+.opciones-grandes .opcion{min-height:120px;padding:24px}
+.opciones-compactas .opcion{min-height:52px;padding:12px 20px;border-radius:999px}
+.opcion:hover{background:#17284a}
+.opcion:active{transform:scale(.98)}
+.opcion input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opcion:has(input:checked){background:var(--blanco);color:var(--noche)}
+.opcion:has(input:focus-visible){outline:3px solid var(--blanco);outline-offset:3px}
+.opcion-t{font-weight:600;font-size:18px;line-height:1.25}
+.opciones-grandes .opcion-t{font-family:var(--font-display);font-stretch:108%;font-size:26px;font-weight:800}
+.opcion-d{font-size:15px;color:var(--nota);line-height:1.4}
+.opcion:has(input:checked) .opcion-d{color:var(--gris)}
+.campos-2{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
+.salario{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.campo-bloque{display:grid;gap:8px;min-width:0}
+.campo-etiqueta{font-size:16px;font-weight:600;color:var(--blanco)}
+.campo{width:100%;min-height:52px;padding:12px 16px;border-radius:10px;background:var(--panel);color:var(--blanco);font-size:18px;border:1.5px solid transparent}
+.campo::placeholder{color:#7d8aa3}
+.campo:hover{background:#17284a}
+.campo:focus-visible{outline:3px solid var(--blanco);outline-offset:2px}
+.campo[aria-invalid=true]{border-color:#f97066}
+select.campo{appearance:auto}
+select.campo option{background:var(--panel);color:var(--blanco)}
+.campo-area{min-height:120px;line-height:1.5;resize:vertical}
+.campo-error{color:#fda29b;font-size:16px;font-weight:500}
+.casilla{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:17px;color:var(--secundario)}
+.casilla input{width:22px;height:22px;margin-top:2px;flex-shrink:0;accent-color:var(--jobs)}
+.casilla a{color:var(--blanco);text-decoration:underline}
+.contador{display:inline-flex;align-items:center;gap:20px;font-size:20px;font-weight:600}
+.contador-btn{width:52px;height:52px;border-radius:999px;background:var(--panel);font-size:26px;line-height:1;transition:background-color .15s,transform .15s}
+.contador-btn:hover:not(:disabled){background:#17284a}.contador-btn:active:not(:disabled){transform:scale(.94)}.contador-btn:disabled{opacity:.4}
+.enlace{justify-self:start;color:var(--blanco);text-decoration:underline;font-weight:600;font-size:16px}
+.asistente-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:56px}
+.asistente-nav .pill{min-width:140px;transition:background-color .15s,transform .15s}
+.asistente-nav .pill:active{transform:scale(.97)}
+.asistente-nav .pill:disabled{opacity:.6;cursor:progress}
+.asistente-nota{margin-top:28px;font-size:16px;color:var(--nota);max-width:36em}
+.redactando{display:grid;gap:14px;max-width:620px}
+.redactando span{display:block;height:20px;border-radius:6px;background:var(--panel);animation:latido 1.2s ease-in-out infinite}
+.redactando span:nth-child(2){width:86%;animation-delay:.15s}.redactando span:nth-child(3){width:64%;animation-delay:.3s}
+@keyframes latido{50%{opacity:.45}}
+.texto-previa summary{cursor:pointer;font-weight:600;font-size:16px}
+.texto-previa .texto-oferta{margin-top:16px;padding:24px;border-radius:14px;background:var(--panel)}
+.asistente-pasos-fin{margin-top:40px;display:grid;gap:16px;max-width:36em;color:var(--secundario)}
+.asistente-pasos-fin strong{color:var(--blanco)}
+.asistente-registro{margin-top:48px;padding:32px;border-radius:16px;background:var(--panel);max-width:620px}
+.asistente-registro h2{font-size:32px}
+.asistente-registro p{margin-top:12px;color:var(--secundario)}
+
+/* Vista previa: la tarjeta tal como sale en la app */
+.asistente-vista{position:sticky;top:112px}
+.asistente-vista h2{font-size:22px;font-weight:600;margin-bottom:16px}
+.asistente-vista-nota{margin-top:16px;font-size:15px;color:var(--nota)}
+.telefono{padding:20px 16px 28px;border-radius:32px;background:var(--suave);color:var(--noche);transition:opacity .2s}
+.telefono.cargando{opacity:.55}
+.telefono-cabecera{font-family:var(--font-display);font-stretch:108%;font-weight:800;font-size:22px;padding:4px 8px 14px}
+.oferta-tarjeta{background:#fff;border-radius:20px;padding:20px;color:var(--noche)}
+.oferta-tarjeta-aviso{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#5b3fc4}
+.oferta-tarjeta-aviso i{width:10px;height:10px;border-radius:3px;background:var(--jobs)}
+.oferta-tarjeta-titulo{margin-top:10px;font-size:22px!important;line-height:1.15!important;color:var(--noche)!important}
+.oferta-tarjeta-empresa{margin-top:6px;font-size:15px;color:var(--gris)}
+.oferta-tarjeta-resumen{margin-top:10px;font-size:15px;line-height:1.45}
+.oferta-tarjeta-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.oferta-tarjeta-chips li{padding:4px 10px;border-radius:999px;background:var(--suave);font-size:13px;font-weight:600}
+.oferta-tarjeta-datos{margin-top:14px;display:grid;gap:4px;font-size:15px}
+.oferta-tarjeta-datos li::before{content:"·";margin-right:8px;color:var(--jobs);font-weight:800}
+.oferta-tarjeta-acciones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.oferta-tarjeta-acciones span{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;background:var(--suave);font-size:15px;font-weight:600}
+.oferta-tarjeta-acciones .si{background:var(--noche);color:#fff}
+
+/* Texto de la oferta (Markdown sencillo) */
+.texto-oferta{display:grid;gap:24px}
+.texto-oferta h3{font-size:24px;margin-bottom:10px}
+.texto-oferta ul{display:grid;gap:6px}
+.texto-oferta li{padding-left:20px;position:relative}
+.texto-oferta li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--jobs)}
+
+/* Página pública de una oferta */
+.oferta-pagina{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:72px;align-items:start;padding:136px clamp(16px,4vw,56px) 120px}
+.oferta-cuerpo{max-width:760px}
+.oferta-h1{font-size:52px;line-height:1.02;letter-spacing:-.02em}
+.oferta-empresa{margin-top:20px;font-size:20px;font-weight:600}
+.oferta-resumen{margin-top:16px;font-size:20px;color:var(--secundario);max-width:34em}
+.oferta-datos{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.oferta-datos li{padding:8px 16px;border-radius:999px;background:var(--panel);font-size:16px;font-weight:600}
+.oferta-cuerpo .texto-oferta{color:var(--secundario)}.oferta-cuerpo .texto-oferta strong{color:var(--blanco)}
+.oferta-lateral{position:sticky;top:112px}
+.oferta-req{margin-top:20px;display:grid;gap:6px;font-weight:600}
+.oferta-req li::before{content:"·";margin-right:8px;color:#5b3fc4;font-weight:800}
+
+@media (max-width:1100px){
+  .asistente,.oferta-pagina{grid-template-columns:minmax(0,1fr);gap:56px}
+  .asistente-vista,.oferta-lateral{position:static;max-width:520px}
+  .asistente-h1{font-size:44px}.oferta-h1{font-size:42px}
+}
+@media (max-width:760px){
+  .asistente{padding-top:100px;padding-bottom:40px}
+  .oferta-pagina{padding-top:104px;padding-bottom:72px}
+  .asistente-h1{font-size:34px}.oferta-h1{font-size:32px}
+  .asistente-sub{font-size:17px}
+  .asistente-progreso{margin-bottom:28px}
+  .asistente-controles{margin-top:28px;gap:28px}
+  .opciones-grandes{grid-template-columns:minmax(0,1fr)}
+  .opciones-grandes .opcion{min-height:84px;padding:18px 20px}.opciones-grandes .opcion-t{font-size:22px}
+  .opciones{grid-template-columns:minmax(0,1fr)}
+  .campos-2{grid-template-columns:minmax(0,1fr)}
+  .salario{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.salario .campo-bloque:last-child{grid-column:1/-1}
+  .asistente-nav{position:sticky;bottom:0;z-index:5;margin:40px calc(-1 * clamp(16px,4vw,56px)) 0;padding:12px clamp(16px,4vw,56px) calc(12px + var(--cookie-reserve));background:var(--noche)}
+  .asistente-nav .pill{flex:1;min-width:0}
+  .asistente-registro{padding:24px}
+}
+@media (prefers-reduced-motion:reduce){.asistente-cuerpo{animation:none}}
+
+/* «Cómo funciona» de la portada (ComoFunciona.tsx) */
+.cf{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(72px,10vw,144px);padding:clamp(72px,9vw,136px) clamp(16px,4vw,56px);background:var(--noche);color-scheme:dark;scroll-margin-top:72px}
+.cf-h2{font-size:62px;line-height:1;text-wrap:balance}
+.cf-sub{margin-top:16px;font-size:20px;color:var(--secundario)}
+.cf-riel{display:flex;gap:8px;margin-top:40px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;position:relative}
+.cf-riel::-webkit-scrollbar{display:none}
+.cf-riel li{flex:none}
+.cf-riel button{-webkit-tap-highlight-color:transparent;min-height:48px;padding:10px 22px;border-radius:999px;background:var(--panel);color:var(--secundario);font-weight:600;font-size:17px;white-space:nowrap;touch-action:manipulation;transition:background-color .15s,color .15s}
+.cf-riel button:hover{background:#17284a}
+.cf-riel button:focus-visible{outline-offset:-3px}
+.cf-riel button.on{background:var(--blanco);color:var(--noche)}
+.cf-riel button.hecho{color:var(--blanco)}
+.cf-riel button.hecho::before{content:"";display:inline-block;width:10px;height:10px;margin-right:9px;border-radius:3px;background:var(--jobs)}
+.cf-escena{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(40px,7vw,104px);align-items:start;margin-top:48px;min-height:520px}
+.cf-texto,.cf-demo{min-width:0;animation:entra .32s cubic-bezier(.2,.7,.2,1) both}
+.cf-texto h3{font-size:48px;line-height:1.04;letter-spacing:-.01em;text-wrap:balance;outline:none}
+.cf-p{margin-top:18px;max-width:36em;font-size:19px;color:var(--secundario)}
+.cf-control{margin-top:32px;max-width:620px}
+.cf-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.cf-nav .pill,.cf-boton{transition:background-color .15s,transform .15s}
+.cf-nav .pill:active,.cf-boton:active{transform:scale(.97)}
+.cf-panel{padding:24px;border-radius:16px;background:var(--panel)}
+.cf-entra{animation:entra .32s cubic-bezier(.2,.7,.2,1) both}
+.cf-espera{font-size:17px;color:var(--secundario)}
+.cf-oculto-cab{display:flex;align-items:center;gap:16px}
+.cf-afinidad{font-family:var(--font-display);font-stretch:108%;font-weight:800;font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.cf-afinidad span{font-size:32px;color:var(--secundario)}
+.cf-oculto-cab p:last-child{font-size:16px;line-height:1.35;color:var(--secundario)}
+.cf-oculto-cab strong{display:block;color:var(--blanco)}
+.cf-cualidades{display:grid;gap:6px;margin-top:18px;font-size:17px}
+.cf-cualidades li::before{content:"";display:inline-block;width:10px;height:10px;margin-right:10px;border-radius:3px;background:var(--jobs)}
+.cf-boton{margin-top:24px;width:100%}
+.cf-interesa{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;background:var(--noche);color:#fff;font-size:15px;font-weight:600;touch-action:manipulation;outline:3px solid var(--jobs);outline-offset:2px}
+.cf-interesa[aria-disabled=true]{background:var(--gris);outline:0}
+.telefono .cf-interesa:focus-visible{outline-color:var(--noche)}
+.cf-conductores{display:grid;gap:8px}
+.cf-conductores li{padding:18px 20px;border-radius:14px;background:var(--panel);transition:background-color .15s,color .15s}
+.cf-conductores strong{display:block;font-size:17px;font-weight:600;color:var(--nota)}
+.cf-conductores span{display:block;margin-top:2px;font-size:15px;line-height:1.35;color:var(--nota)}
+.cf-conductores li.si{background:var(--blanco)}
+.cf-conductores li.si strong{color:var(--noche)}
+.cf-conductores li.si span{color:#5b3fc4;font-weight:600}
+.cf-nombre{font-family:var(--font-display);font-stretch:108%;font-size:28px;font-weight:800;line-height:1.1}
+.cf-ficha{display:grid;gap:12px;margin-top:18px}
+.cf-ficha dt{font-size:15px;color:var(--nota)}
+.cf-ficha dd{font-size:17px;font-weight:600}
+.cf-garantia p{margin-top:16px;font-size:18px;font-weight:600}
+.cf-etiqueta{display:block;font-family:var(--font-display);font-stretch:108%;font-weight:600;font-size:20px;line-height:1.25}
+.cf-etiqueta output{margin-left:4px;color:var(--jobs);font-variant-numeric:tabular-nums}
+.cf-rango{display:block;width:100%;height:44px;margin-top:8px;accent-color:var(--jobs);cursor:pointer}
+.cf-plazo{height:12px;margin-top:8px;border-radius:999px;background:var(--noche);overflow:hidden}
+.cf-plazo span{display:block;height:100%;border-radius:inherit;background:var(--jobs);transition:width .15s}
+.cf-nota{margin-top:14px;font-size:16px;line-height:1.45;color:var(--secundario)}
+.cf-coste{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(40px,7vw,104px);align-items:start}
+.cf-bonos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:28px;max-width:560px}
+.cf-bonos li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 18px;border-radius:12px;background:var(--panel);font-size:16px;color:var(--secundario)}
+.cf-bonos strong{font-size:20px;color:var(--blanco);font-variant-numeric:tabular-nums}
+.cf-total{margin-top:8px;font-family:var(--font-display);font-stretch:108%;font-weight:800;font-size:64px;line-height:1.05;font-variant-numeric:tabular-nums}
+@media (max-width:1100px){.cf-h2{font-size:44px}.cf-texto h3{font-size:36px}.cf-escena,.cf-coste{gap:40px}}
+@media (max-width:820px){.cf-escena,.cf-coste{grid-template-columns:minmax(0,1fr);min-height:0}.cf-escena{gap:0}.cf-texto{display:contents}.cf-texto h3,.cf-p,.cf-control{animation:entra .32s cubic-bezier(.2,.7,.2,1) both}.cf-demo{order:1;width:100%;max-width:440px;margin-top:32px}.cf-control-tras{order:2}.cf-nav{order:3}}
+@media (max-width:760px){.cf-h2{font-size:32px}.cf-sub{font-size:18px}.cf-texto h3{font-size:28px}.cf-p{font-size:17px}.cf-riel{margin-inline:calc(-1 * clamp(16px,4vw,56px));padding-inline:clamp(16px,4vw,56px)}.cf-escena{margin-top:32px}.cf-nav .pill{flex:1 1 auto}.cf-bonos{grid-template-columns:minmax(0,1fr)}.cf-total,.cf-afinidad{font-size:48px}.cf-panel{padding:20px}}

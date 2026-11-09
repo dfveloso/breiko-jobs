@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicarRouteImport } from './routes/publicar'
+import { Route as OfertaSlugRouteImport } from './routes/oferta.$slug'
+import { Route as OfertaPublicadaRouteImport } from './routes/oferta.publicada'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublicarRoute = PublicarRouteImport.update({
+  id: '/publicar',
+  path: '/publicar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertaSlugRoute = OfertaSlugRouteImport.update({
+  id: '/oferta/$slug',
+  path: '/oferta/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertaPublicadaRoute = OfertaPublicadaRouteImport.update({
+  id: '/oferta/publicada',
+  path: '/oferta/publicada',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/publicar': typeof PublicarRoute
+  '/oferta/$slug': typeof OfertaSlugRoute
+  '/oferta/publicada': typeof OfertaPublicadaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/publicar': typeof PublicarRoute
+  '/oferta/$slug': typeof OfertaSlugRoute
+  '/oferta/publicada': typeof OfertaPublicadaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/publicar': typeof PublicarRoute
+  '/oferta/$slug': typeof OfertaSlugRoute
+  '/oferta/publicada': typeof OfertaPublicadaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
+  id: '__root__' | '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PublicarRoute: typeof PublicarRoute
+  OfertaSlugRoute: typeof OfertaSlugRoute
+  OfertaPublicadaRoute: typeof OfertaPublicadaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/publicar': {
+      id: '/publicar'
+      path: '/publicar'
+      fullPath: '/publicar'
+      preLoaderRoute: typeof PublicarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oferta/$slug': {
+      id: '/oferta/$slug'
+      path: '/oferta/$slug'
+      fullPath: '/oferta/$slug'
+      preLoaderRoute: typeof OfertaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oferta/publicada': {
+      id: '/oferta/publicada'
+      path: '/oferta/publicada'
+      fullPath: '/oferta/publicada'
+      preLoaderRoute: typeof OfertaPublicadaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PublicarRoute: PublicarRoute,
+  OfertaSlugRoute: OfertaSlugRoute,
+  OfertaPublicadaRoute: OfertaPublicadaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
