@@ -286,3 +286,9 @@ select.campo option{background:var(--panel);color:var(--blanco)}
 @media (max-width:1100px){.cf-h2{font-size:44px}.cf-texto h3{font-size:36px}.cf-escena,.cf-coste{gap:40px}}
 @media (max-width:820px){.cf-escena,.cf-coste{grid-template-columns:minmax(0,1fr);min-height:0}.cf-escena{gap:0}.cf-texto{display:contents}.cf-texto h3,.cf-p,.cf-control{animation:entra .32s cubic-bezier(.2,.7,.2,1) both}.cf-demo{order:1;width:100%;max-width:440px;margin-top:32px}.cf-control-tras{order:2}.cf-nav{order:3}}
 @media (max-width:760px){.cf-h2{font-size:32px}.cf-sub{font-size:18px}.cf-texto h3{font-size:28px}.cf-p{font-size:17px}.cf-riel{margin-inline:calc(-1 * clamp(16px,4vw,56px));padding-inline:clamp(16px,4vw,56px)}.cf-escena{margin-top:32px}.cf-nav .pill{flex:1 1 auto}.cf-bonos{grid-template-columns:minmax(0,1fr)}.cf-total,.cf-afinidad{font-size:48px}.cf-panel{padding:20px}}
+
+/* La portada abre con las empresas: pantalla entera y titular a tamaño de h2 */
+.escena-entrada{min-height:100vh}
+.escena-entrada h1{font-size:62px}
+@media (min-width:761px) and (max-width:1100px){.escena-entrada h1{font-size:44px}}
+@media (max-width:760px){.escena-entrada{min-height:auto}.escena-entrada h1{font-size:32px}}

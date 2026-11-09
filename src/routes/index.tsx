@@ -34,9 +34,9 @@ const PUNTOS = [
 ];
 
 const FOTOS = [
+  { src: fFlota.url, pos: "60% 55%" },
   { src: fAutobus.url, pos: "65% 40%" },
   { src: fCabina.url, pos: "15% 45%" },
-  { src: fFlota.url, pos: "60% 55%" },
 ];
 
 function Index() {
@@ -132,13 +132,41 @@ function Index() {
       <div className="velo velo-izq" ref={vIzqRef} aria-hidden="true" />
       <div className="velo velo-der" ref={vDerRef} aria-hidden="true" />
       <main id="contenido" className="portada" ref={portada}>
+        <section className="escena escena-entrada">
+          <div className="copia">
+            <h1>¿Buscas conductores?</h1>
+            <p className="text-lg">
+              Publica tu oferta gratis y sin cuenta: responde unas preguntas, la redactamos por ti y
+              llega a los conductores que encajan. Solo pagas si quieres ver el perfil completo de
+              un candidato.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/publicar" className="pill pill-primary">
+                Publicar una oferta
+              </Link>
+              <a href="#como-funciona" className="pill pill-secondary">
+                Ver cómo funciona
+              </a>
+              <a
+                href="#apuntarme"
+                onClick={() => setPerfil("empresa")}
+                className="pill pill-secondary"
+              >
+                Solo quiero novedades
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <ComoFunciona />
+
         <section className="escena">
           <div className="copia">
             <p className="prod">
               <i aria-hidden="true" />
               Breiko Jobs
             </p>
-            <h1>Empleo para conductores profesionales</h1>
+            <h2>Empleo para conductores profesionales</h2>
             <p className="text-lg">
               Estamos preparando ofertas de trabajo de conducción dentro de la app Breiko Breiko.
               Apúntate y te avisamos el primer día.
@@ -171,34 +199,6 @@ function Index() {
             </ul>
           </div>
         </section>
-
-        <section className="escena">
-          <div className="copia">
-            <h2>¿Buscas conductores?</h2>
-            <p className="text-lg">
-              Publica tu oferta gratis y sin cuenta: responde unas preguntas, la redactamos por ti y
-              llega a los conductores que encajan. Solo pagas si quieres ver el perfil completo de
-              un candidato.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/publicar" className="pill pill-primary">
-                Publicar una oferta
-              </Link>
-              <a href="#como-funciona" className="pill pill-secondary">
-                Ver cómo funciona
-              </a>
-              <a
-                href="#apuntarme"
-                onClick={() => setPerfil("empresa")}
-                className="pill pill-secondary"
-              >
-                Solo quiero novedades
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <ComoFunciona />
       </main>
       <SiteFooter />
       <CookieNotice />
