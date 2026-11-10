@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["6G773J78WS.com.hyliaapps.breiko"],
+        "components": [{ "/": "/oferta/*", "comment": "La oferta de un enlace compartido se abre en la app de Breiko" }]
+      }
+    ]
+  }
+}

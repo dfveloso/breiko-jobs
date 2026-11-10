@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hyliaapps.breiko",
+      "sha256_cert_fingerprints": [
+        "47:75:48:37:39:BE:35:8A:95:1F:CE:2F:9D:D0:CD:AC:11:3B:CE:6A:95:0B:3D:35:82:25:8F:94:A9:73:57:0A",
+        "5A:29:4B:DE:6F:26:D3:9D:14:0B:B2:89:96:01:86:E2:87:EB:F4:79:5D:03:0C:6E:75:FB:B0:BD:72:40:84:4D"
+      ]
+    }
+  }
+]
