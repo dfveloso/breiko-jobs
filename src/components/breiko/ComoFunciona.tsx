@@ -34,13 +34,9 @@ const CONDUCTORES = [
   { d: "Permiso D · vive en A Coruña", p: ["D"], prov: "A Coruña" },
 ];
 
-// Sin IVA (EMPLEO_BONOS en lib/empleo_empresa.php).
-const BONOS = [
-  { n: 1, imp: 19 },
-  { n: 3, imp: 49 },
-  { n: 10, imp: 129 },
-  { n: 25, imp: 275 },
-];
+// Sin IVA (EMPLEO_REGALO y EMPLEO_BONOS en lib/empleo_empresa.php).
+const REGALO = 3;
+const PRECIO = 15;
 
 const eur = new Intl.NumberFormat("es-ES", {
   style: "currency",
@@ -48,21 +44,6 @@ const eur = new Intl.NumberFormat("es-ES", {
   maximumFractionDigits: 0,
 });
 const euros = (v: number) => eur.format(v);
-
-/** El gasto mínimo para cubrir n desbloqueos con los bonos que hay. */
-function mejorCompra(n: number) {
-  const mejor: { total: number; bonos: number[] }[] = [{ total: 0, bonos: [] }];
-  for (let i = 1; i <= n; i++) {
-    let elegido: { total: number; bonos: number[] } | undefined;
-    for (const b of BONOS) {
-      const previo = mejor[Math.max(0, i - b.n)]!;
-      const total = previo.total + b.imp;
-      if (!elegido || total < elegido.total) elegido = { total, bonos: [...previo.bonos, b.n] };
-    }
-    mejor[i] = elegido!;
-  }
-  return mejor[n]!;
-}
 
 function Elegir<T extends string>({
   nombre,
@@ -183,19 +164,8 @@ export function ComoFunciona() {
   );
 
   const hasta = Math.min(dia + 30, 90);
-  const cobrados = Math.max(0, perfiles - 1); // el primero es gratis
-  const compra = mejorCompra(cobrados);
-  const cuantos = compra.bonos.reduce<Record<number, number>>(
-    (t, n) => ({ ...t, [n]: (t[n] ?? 0) + 1 }),
-    {},
-  );
-  const detalleBonos = Object.keys(cuantos)
-    .map(Number)
-    .sort((a, b) => b - a)
-    .map((n) => `${cuantos[n] === 1 ? "un bono" : `${cuantos[n]} bonos`} de ${n}`)
-    .join(" y ");
-  const comprados = compra.bonos.reduce((t, n) => t + n, 0);
-  const sobran = comprados - cobrados;
+  const cobrados = Math.max(0, perfiles - REGALO);
+  const total = cobrados * PRECIO;
 
   let h = "";
   let texto = "";
@@ -280,7 +250,7 @@ export function ComoFunciona() {
   } else if (paso === 3) {
     h = "Pagas solo por quien te interesa";
     texto =
-      "Cada desbloqueo te enseña un perfil completo y abre un chat con ese conductor. El primero es gratis con tu primera oferta. Eliges tú a quién desbloquear, viendo antes cuánto encaja.";
+      "Cada desbloqueo te enseña un perfil completo y abre un chat con ese conductor. Los 3 primeros son gratis con tu primera oferta. Eliges tú a quién desbloquear, viendo antes cuánto encaja.";
     demo = (
       <div className="cf-panel" aria-live="polite">
         {desbloqueado ? (
@@ -448,16 +418,23 @@ export function ComoFunciona() {
             Cuánto te costaría
           </h2>
           <p className="cf-p">
-            Publicar no cuesta nada. Los desbloqueos van en bonos, se suman entre sí y caducan a los
-            12 meses. Se cobran al comprarlos y cada compra lleva su factura.
+            Publicar no cuesta nada. Los 3 primeros desbloqueos son gratis con tu primera oferta.
+            Después, cada uno cuesta 15 €, se cobra al momento y lleva su factura. Si tienes Breiko
+            PRO, tu plan trae desbloqueos cada mes.
           </p>
           <ul className="cf-bonos">
-            {BONOS.map((b) => (
-              <li key={b.n}>
-                <span>{b.n === 1 ? "1 desbloqueo" : `${b.n} desbloqueos`}</span>
-                <strong>{euros(b.imp)}</strong>
-              </li>
-            ))}
+            <li>
+              <span>3 primeros desbloqueos</span>
+              <strong>Gratis</strong>
+            </li>
+            <li>
+              <span>Cada desbloqueo más</span>
+              <strong>{euros(PRECIO)}</strong>
+            </li>
+            <li>
+              <span>Breiko PRO, con 1 a 10 al mes</span>
+              <strong>Desde 9 €/mes</strong>
+            </li>
           </ul>
         </div>
         <div className="cf-panel">
@@ -474,12 +451,12 @@ export function ComoFunciona() {
             onChange={(e) => setPerfiles(Number(e.target.value))}
           />
           <p className="cf-total" aria-live="polite">
-            {euros(compra.total)}
+            {euros(total)}
           </p>
           <p className="cf-nota">
             {cobrados === 0
-              ? "El primer desbloqueo es gratis con tu primera oferta."
-              : `El primero gratis y ${detalleBonos}, sin IVA.${sobran > 0 ? ` ${sobran === 1 ? "Te sobra 1" : `Te sobran ${sobran}`} para otra oferta.` : ""}`}
+              ? "Los 3 primeros desbloqueos son gratis con tu primera oferta."
+              : `Los 3 primeros gratis y ${cobrados} a 15 €, sin IVA.`}
           </p>
           <Link to="/publicar" className="pill pill-primary cf-boton">
             Publicar una oferta
