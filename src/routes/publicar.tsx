@@ -872,7 +872,7 @@ function Publicar() {
               {err("acepta")}
               <p className="asistente-nota">
                 Publicar es gratis. Cuando un conductor se interese verás su afinidad con la oferta;
-                para ver su perfil completo y escribirle, podrás desbloquearlo.
+                para ver su perfil completo y escribirle, podrás contactarle.
               </p>
             </Pregunta>
           )}

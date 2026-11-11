@@ -77,8 +77,8 @@ function Publicada() {
                 <h2>Síguela desde tu cuenta</h2>
                 <p>
                   Crea gratis tu cuenta de empresa con el mismo correo y la oferta aparecerá en
-                  ella. Desde ahí verás los candidatos, podrás editarla o pausarla y desbloquear los
-                  perfiles que te interesen para hablar con ellos por el chat.
+                  ella. Desde ahí verás los candidatos, podrás editarla o pausarla y contactar con
+                  los que te interesen para hablar con ellos por el chat.
                 </p>
                 <a className="pill pill-primary mt-6" href={registro}>
                   Crear mi cuenta de empresa

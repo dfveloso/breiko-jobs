@@ -6,7 +6,7 @@ import { OfertaTarjeta } from "@/components/breiko/OfertaTarjeta";
 // puede tocar. Nada de lo que se pulsa aquí llama al servidor. Las reglas son las de
 // breiko-ws (lib/empleo_app.php y lib/empleo_empresa.php): si cambian allí, cambian aquí.
 
-const PASOS = ["Publicas", "Quién la ve", "Se apunta", "Desbloqueas", "Habláis"];
+const PASOS = ["Publicas", "Quién la ve", "Se apunta", "Contactas", "Habláis"];
 
 type Vehiculo = "trailer" | "rigido" | "autobus";
 type Ambito = "regional" | "nacional";
@@ -250,7 +250,7 @@ export function ComoFunciona() {
   } else if (paso === 3) {
     h = "Pagas solo por quien te interesa";
     texto =
-      "Cada desbloqueo te enseña un perfil completo y abre un chat con ese conductor. Los 3 primeros son gratis con tu primera oferta. Eliges tú a quién desbloquear, viendo antes cuánto encaja.";
+      "Cada contacto te enseña un perfil completo y abre un chat con ese conductor. Los 3 primeros son gratis con tu primera oferta. Eliges tú a quién contactar, viendo antes cuánto encaja.";
     demo = (
       <div className="cf-panel" aria-live="polite">
         {desbloqueado ? (
@@ -290,7 +290,7 @@ export function ComoFunciona() {
                 titulo.current?.focus({ preventScroll: true });
               }}
             >
-              Desbloquear su perfil
+              Contactar
             </button>
           </>
         )}
@@ -299,7 +299,7 @@ export function ComoFunciona() {
   } else {
     h = "Le escribes directamente";
     texto =
-      "El chat dura 30 días desde que desbloqueas y cada mensaje lo alarga, hasta un máximo de 90. Cuando la conversación se cierra queda en solo lectura y dejas de ver su teléfono y su currículum.";
+      "El chat dura 30 días desde que contactas y cada mensaje lo alarga, hasta un máximo de 90. Cuando la conversación se cierra queda en solo lectura y dejas de ver su teléfono y su currículum.";
     control = (
       <div className="cf-garantia">
         <Elegir
@@ -315,7 +315,7 @@ export function ComoFunciona() {
         <p aria-live="polite">
           {contesta === "si"
             ? "Seguís hablando por el chat."
-            : "Te devolvemos el desbloqueo para que lo uses con otro conductor."}
+            : "Te devolvemos el contacto para que lo uses con otro conductor."}
         </p>
       </div>
     );
@@ -418,17 +418,17 @@ export function ComoFunciona() {
             Cuánto te costaría
           </h2>
           <p className="cf-p">
-            Publicar no cuesta nada. Los 3 primeros desbloqueos son gratis con tu primera oferta.
+            Publicar no cuesta nada. Los 3 primeros contactos son gratis con tu primera oferta.
             Después, cada uno cuesta 15 €, se cobra al momento y lleva su factura. Si tienes Breiko
-            PRO, tu plan trae desbloqueos cada mes.
+            PRO, tu plan trae contactos cada mes.
           </p>
           <ul className="cf-bonos">
             <li>
-              <span>3 primeros desbloqueos</span>
+              <span>3 primeros contactos</span>
               <strong>Gratis</strong>
             </li>
             <li>
-              <span>Cada desbloqueo más</span>
+              <span>Cada contacto más</span>
               <strong>{euros(PRECIO)}</strong>
             </li>
             <li>
@@ -455,7 +455,7 @@ export function ComoFunciona() {
           </p>
           <p className="cf-nota">
             {cobrados === 0
-              ? "Los 3 primeros desbloqueos son gratis con tu primera oferta."
+              ? "Los 3 primeros contactos son gratis con tu primera oferta."
               : `Los 3 primeros gratis y ${cobrados} a 15 €, sin IVA.`}
           </p>
           <Link to="/publicar" className="pill pill-primary cf-boton">
