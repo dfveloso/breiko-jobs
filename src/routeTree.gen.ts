@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConductoresRouteImport } from './routes/conductores'
 import { Route as PublicarRouteImport } from './routes/publicar'
 import { Route as OfertaSlugRouteImport } from './routes/oferta.$slug'
 import { Route as OfertaPublicadaRouteImport } from './routes/oferta.publicada'
@@ -17,6 +18,11 @@ import { Route as OfertaPublicadaRouteImport } from './routes/oferta.publicada'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConductoresRoute = ConductoresRouteImport.update({
+  id: '/conductores',
+  path: '/conductores',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicarRoute = PublicarRouteImport.update({
@@ -37,12 +43,14 @@ const OfertaPublicadaRoute = OfertaPublicadaRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/conductores': typeof ConductoresRoute
   '/publicar': typeof PublicarRoute
   '/oferta/$slug': typeof OfertaSlugRoute
   '/oferta/publicada': typeof OfertaPublicadaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/conductores': typeof ConductoresRoute
   '/publicar': typeof PublicarRoute
   '/oferta/$slug': typeof OfertaSlugRoute
   '/oferta/publicada': typeof OfertaPublicadaRoute
@@ -50,20 +58,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/conductores': typeof ConductoresRoute
   '/publicar': typeof PublicarRoute
   '/oferta/$slug': typeof OfertaSlugRoute
   '/oferta/publicada': typeof OfertaPublicadaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
+  fullPaths:
+    '/' | '/conductores' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
-  id: '__root__' | '/' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
+  to: '/' | '/conductores' | '/publicar' | '/oferta/$slug' | '/oferta/publicada'
+  id:
+    | '__root__'
+    | '/'
+    | '/conductores'
+    | '/publicar'
+    | '/oferta/$slug'
+    | '/oferta/publicada'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConductoresRoute: typeof ConductoresRoute
   PublicarRoute: typeof PublicarRoute
   OfertaSlugRoute: typeof OfertaSlugRoute
   OfertaPublicadaRoute: typeof OfertaPublicadaRoute
@@ -76,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conductores': {
+      id: '/conductores'
+      path: '/conductores'
+      fullPath: '/conductores'
+      preLoaderRoute: typeof ConductoresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/publicar': {
@@ -104,6 +128,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConductoresRoute: ConductoresRoute,
   PublicarRoute: PublicarRoute,
   OfertaSlugRoute: OfertaSlugRoute,
   OfertaPublicadaRoute: OfertaPublicadaRoute,

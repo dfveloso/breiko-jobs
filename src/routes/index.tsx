@@ -44,6 +44,9 @@ function Index() {
               <Link to="/publicar" className="pill pill-primary">
                 Publicar una oferta
               </Link>
+              <Link to="/conductores" className="pill pill-secondary">
+                Ver conductores disponibles
+              </Link>
               <a href="#como-funciona" className="pill pill-secondary">
                 Ver cómo funciona
               </a>

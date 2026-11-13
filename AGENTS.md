@@ -9,6 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep Jobs as one content route with three photographic scenes and the existing interest form; presentation changes must not alter submission or database behavior.
+- Preserve existing public Jobs pages and form behavior; add new public experiences as separate typed routes.
+- Keep public driver-board API DTOs and query helpers in lib/vitrina.ts; province and pagination live in validated route search so links are shareable.
 - Measure the visible cookie notice with ResizeObserver into --cookie-reserve and clear it when hidden; first-scene padding and scroll clearance use that value to protect controls.
 - Measure the form card after layout and on resize/content changes; disable desktop sticky positioning when it exceeds the space below its 112px top offset.

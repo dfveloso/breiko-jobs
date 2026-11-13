@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu } from "lucide-react";
 import { LINKS } from "@/lib/provincias";
 import logoBlanco from "@/assets/logo_breiko_blanco.png.asset.json";
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 
 type Producto = "app" | "fleet" | "insights" | "jobs";
 const PRODUCTS: { id: Producto; nombre: string; color: string; desc: string; href: string }[] = [
@@ -50,6 +52,7 @@ export function SiteHeader() {
           <a href="/" className="flex items-center gap-2 font-display text-[20px] font-semibold [font-stretch:108%]"><Cuadro c="bg-jobs" />Jobs</a>
         </span>
         <div className="flex items-center gap-1 sm:gap-2">
+          <Button asChild variant="ghost" className={`hidden md:inline-flex ${lnk}`}><Link to="/conductores">Conductores disponibles</Link></Button>
           <div className="relative hidden md:block">
             <button type="button" aria-expanded={open === "prod"} aria-controls="menu-productos" onClick={() => setOpen(open === "prod" ? null : "prod")} className={`flex items-center gap-1 ${lnk}`}>
               Productos <ChevronDown className={`h-4 w-4 transition-transform ${open === "prod" ? "rotate-180" : ""}`} aria-hidden="true" />
@@ -62,6 +65,7 @@ export function SiteHeader() {
             </button>
             {open === "movil" && (
               <div id="menu-movil" className="absolute right-0 top-12 z-50 w-[min(20rem,calc(100vw-32px))] rounded-2xl border border-white/15 bg-panel p-2 shadow-2xl">
+                <Button asChild variant="ghost" className="h-auto w-full justify-start px-3 py-3 text-base text-blanco"><Link to="/conductores" onClick={() => setOpen(null)}>Conductores disponibles</Link></Button>
                 <p className="px-3 pt-2 text-sm text-nota">Productos</p>
                 {PRODUCTS.map((p) => (
                   <a key={p.id} href={p.href} className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-white/10"><Cuadro c={p.color} />Breiko {p.nombre}</a>
