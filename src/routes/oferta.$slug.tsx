@@ -21,6 +21,7 @@ export const Route = createFileRoute("/oferta/$slug")({
         { property: "og:title", content: t },
         { property: "og:description", content: o?.resumen ?? "" },
         { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
         ...(o && !o.abierta ? [{ name: "robots", content: "noindex" }] : []),
       ],
       links: o

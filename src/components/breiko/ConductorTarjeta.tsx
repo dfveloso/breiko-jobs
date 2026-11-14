@@ -1,4 +1,4 @@
-import { LockKeyhole, UserRound } from "lucide-react";
+import { Check, LockKeyhole, UserRound } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { actividadTexto, enlaceContacto, type ConductorVitrina } from "@/lib/vitrina";
@@ -7,12 +7,18 @@ function Dato({ etiqueta, children }: { etiqueta: string; children: ReactNode })
   return <div><dt className="text-sm text-nota">{etiqueta}</dt><dd className="mt-1 text-base text-secundario">{children}</dd></div>;
 }
 
-export function ConductorTarjeta({ conductor: c, contactar }: { conductor: ConductorVitrina; contactar?: string | undefined }) {
+export function ConductorTarjeta({ conductor: c, contactar, afinidad }: { conductor: ConductorVitrina; contactar?: string | undefined; afinidad?: { afinidad: number; encaja: string[]; no_encaja: string[] } }) {
   const [fotoFallida, setFotoFallida] = useState(false);
   const actividad = actividadTexto(c.actividad);
   const href = enlaceContacto(contactar, c.ref);
   return (
     <article className="flex min-w-0 flex-col rounded-2xl border border-border bg-panel p-6 [overflow-wrap:anywhere]">
+      {afinidad && <div className="mb-6 border-b border-border pb-6">
+        <p className="font-display text-[48px] font-extrabold leading-none tabular-nums">{afinidad.afinidad} %</p>
+        <p className="mt-2 text-base text-nota">de afinidad</p>
+        {afinidad.encaja.length > 0 && <><h3 className="mt-5 text-lg">Encaja</h3><ul className="mt-3 space-y-2 text-base text-secundario">{afinidad.encaja.map((t, i) => <li key={i} className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />{t}</li>)}</ul></>}
+        {afinidad.no_encaja.length > 0 && <><h3 className="mt-5 text-lg">A tener en cuenta</h3><ul className="mt-3 space-y-2 text-base text-secundario">{afinidad.no_encaja.map((t, i) => <li key={i}>{t}</li>)}</ul></>}
+      </div>}
       <div className="flex items-center gap-4">
         <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gris text-secundario">
           {c.foto && !fotoFallida ? <img src={c.foto} alt="" width={64} height={64} loading="lazy" referrerPolicy="no-referrer" className="h-full w-full object-cover" onError={() => setFotoFallida(true)} /> : <UserRound className="h-7 w-7" aria-hidden="true" />}

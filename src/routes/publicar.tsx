@@ -41,6 +41,8 @@ export const Route = createFileRoute("/publicar")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: "https://jobs.breikobreiko.com/publicar" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://jobs.breikobreiko.com/publicar" }],
   }),
@@ -300,8 +302,8 @@ function Publicar() {
               porcentaje de afinidad.
             </li>
             <li>
-              <strong>Solo pagas si quieres ver su perfil completo</strong> y escribirle por el
-              chat.
+              <strong>Para ver su perfil completo y escribirle,</strong> usas un contacto: tienes 2
+              gratis al crear tu cuenta.
             </li>
           </ul>
           {enviada.registrada ? (

@@ -19,7 +19,13 @@ export const Route = createFileRoute("/oferta/publicada")({
     error: typeof s["error"] === "string" ? s["error"] : undefined,
   }),
   head: () => ({
-    meta: [{ title: "Oferta publicada · Breiko Jobs" }, { name: "robots", content: "noindex" }],
+    meta: [
+      { title: "Oferta publicada · Breiko Jobs" }, { name: "robots", content: "noindex" },
+      { name: "description", content: "Consulta la confirmación de tu oferta de conductor en Breiko Jobs." },
+      { property: "og:title", content: "Oferta publicada · Breiko Jobs" },
+      { property: "og:description", content: "Consulta la confirmación de tu oferta de conductor en Breiko Jobs." },
+      { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+    ],
   }),
   component: Publicada,
 });

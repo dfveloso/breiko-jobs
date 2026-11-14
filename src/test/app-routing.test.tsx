@@ -14,4 +14,9 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+  it("keeps the board and assistant as separate pages", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    expect(router.matchRoutes("/conductores").at(-1)?.routeId).toBe("/conductores/");
+    expect(router.matchRoutes("/conductores/asistente").at(-1)?.routeId).toBe("/conductores/asistente");
+  });
 });

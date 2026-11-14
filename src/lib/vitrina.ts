@@ -8,7 +8,7 @@ const provinciaSchema = z.object({
   codigo: z.number(), provincia: z.string(), slug: z.string(),
   conductores: z.number(), abierta: z.boolean(),
 });
-const conductorSchema = z.object({
+export const conductorSchema = z.object({
   ref: z.string(), nombre: z.string(), foto: z.string().nullable(), resumen: z.string(),
   carnes: z.array(z.string()), anios_experiencia: z.number(), experiencia: z.array(z.string()),
   certificados: z.array(z.string()), rutas: z.array(z.string()), noches_fuera: z.string().nullable(),

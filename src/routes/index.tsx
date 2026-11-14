@@ -5,7 +5,7 @@ import fFlota from "@/assets/jobs-fondo-flota.webp.asset.json";
 
 const TITLE = "Breiko Jobs · Encuentra conductores profesionales";
 const DESC =
-  "Publica tu oferta gratis y sin cuenta. Llega a los conductores que encajan y paga solo por los perfiles que quieras ver.";
+  "Publica tu oferta gratis y sin cuenta. Tienes 2 contactos gratis para hablar con conductores; después, con Breiko PRO.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,8 +37,8 @@ function Index() {
             <h1>¿Buscas conductores?</h1>
             <p className="text-lg">
               Publica tu oferta gratis y sin cuenta: responde unas preguntas, la redactamos por ti y
-              llega a los conductores que encajan. Solo pagas si quieres ver el perfil completo de
-              un candidato.
+              llega a los conductores que encajan. Tienes 2 contactos gratis para hablar con
+              conductores; después, con Breiko PRO.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/publicar" className="pill pill-primary">
@@ -46,6 +46,9 @@ function Index() {
               </Link>
               <Link to="/conductores" className="pill pill-secondary">
                 Ver conductores disponibles
+              </Link>
+              <Link to="/conductores/asistente" className="pill pill-secondary">
+                Te buscamos conductor
               </Link>
               <a href="#como-funciona" className="pill pill-secondary">
                 Ver cómo funciona

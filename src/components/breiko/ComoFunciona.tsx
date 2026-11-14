@@ -4,7 +4,7 @@ import { OfertaTarjeta } from "@/components/breiko/OfertaTarjeta";
 
 // «Cómo funciona» de la portada, para empresas sin cuenta: una oferta de ejemplo que se
 // puede tocar. Nada de lo que se pulsa aquí llama al servidor. Las reglas son las de
-// breiko-ws (lib/empleo_app.php y lib/empleo_empresa.php): si cambian allí, cambian aquí.
+// breiko-ws: EMPLEO_REGALO = 2 y EMPLEO_VENTA_SUELTA = false en lib/empleo_empresa.php.
 
 const PASOS = ["Publicas", "Quién la ve", "Se apunta", "Contactas", "Habláis"];
 
@@ -33,17 +33,6 @@ const CONDUCTORES = [
   { d: "Permisos C y C+E · vive en Madrid", p: ["C", "C+E"], prov: "Madrid" },
   { d: "Permiso D · vive en A Coruña", p: ["D"], prov: "A Coruña" },
 ];
-
-// Sin IVA (EMPLEO_REGALO y EMPLEO_BONOS en lib/empleo_empresa.php).
-const REGALO = 3;
-const PRECIO = 15;
-
-const eur = new Intl.NumberFormat("es-ES", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
-const euros = (v: number) => eur.format(v);
 
 function Elegir<T extends string>({
   nombre,
@@ -118,7 +107,6 @@ export function ComoFunciona() {
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [dia, setDia] = useState(0);
   const [contesta, setContesta] = useState<"si" | "no">("si");
-  const [perfiles, setPerfiles] = useState(4);
 
   const titulo = useRef<HTMLHeadingElement>(null);
   const riel = useRef<HTMLOListElement>(null);
@@ -164,8 +152,6 @@ export function ComoFunciona() {
   );
 
   const hasta = Math.min(dia + 30, 90);
-  const cobrados = Math.max(0, perfiles - REGALO);
-  const total = cobrados * PRECIO;
 
   let h = "";
   let texto = "";
@@ -248,9 +234,9 @@ export function ComoFunciona() {
       </Telefono>
     );
   } else if (paso === 3) {
-    h = "Pagas solo por quien te interesa";
+    h = "Contactas solo con quien te interesa";
     texto =
-      "Cada contacto te enseña un perfil completo y abre un chat con ese conductor. Los 3 primeros son gratis con tu primera oferta. Eliges tú a quién contactar, viendo antes cuánto encaja.";
+      "Cada contacto te enseña un perfil completo y abre un chat con ese conductor. Tienes 2 gratis al crear tu cuenta de empresa; después, con Breiko PRO tu plan trae contactos cada mes. Eliges tú a quién contactar, viendo antes cuánto encaja.";
     demo = (
       <div className="cf-panel" aria-live="polite">
         {desbloqueado ? (
@@ -397,7 +383,7 @@ export function ComoFunciona() {
                   className="pill pill-primary"
                   onClick={() => setPaso(paso + 1)}
                 >
-                  Siguiente: {PASOS[paso + 1]!.toLowerCase()}
+                  Siguiente: {PASOS[paso + 1]?.toLowerCase()}
                 </button>
               ) : (
                 <Link to="/publicar" className="pill pill-primary">
@@ -418,18 +404,13 @@ export function ComoFunciona() {
             Cuánto te costaría
           </h2>
           <p className="cf-p">
-            Publicar no cuesta nada. Los 3 primeros contactos son gratis con tu primera oferta.
-            Después, cada uno cuesta 15 €, se cobra al momento y lleva su factura. Si tienes Breiko
-            PRO, tu plan trae contactos cada mes.
+            Publicar no cuesta nada. Al crear tu cuenta de empresa tienes 2 contactos gratis.
+            Después, Breiko PRO trae contactos cada mes; si se te quedan cortos, subes de plan.
           </p>
           <ul className="cf-bonos">
             <li>
-              <span>3 primeros contactos</span>
+              <span>2 primeros contactos</span>
               <strong>Gratis</strong>
-            </li>
-            <li>
-              <span>Cada contacto más</span>
-              <strong>{euros(PRECIO)}</strong>
             </li>
             <li>
               <span>Breiko PRO, con 1 a 10 al mes</span>
@@ -438,26 +419,9 @@ export function ComoFunciona() {
           </ul>
         </div>
         <div className="cf-panel">
-          <label className="cf-etiqueta" htmlFor="cf-perfiles">
-            ¿Cuántos perfiles quieres ver? <output>{perfiles}</output>
-          </label>
-          <input
-            id="cf-perfiles"
-            className="cf-rango"
-            type="range"
-            min={1}
-            max={30}
-            value={perfiles}
-            onChange={(e) => setPerfiles(Number(e.target.value))}
-          />
-          <p className="cf-total" aria-live="polite">
-            {euros(total)}
-          </p>
-          <p className="cf-nota">
-            {cobrados === 0
-              ? "Los 3 primeros contactos son gratis con tu primera oferta."
-              : `Los 3 primeros gratis y ${cobrados} a 15 €, sin IVA.`}
-          </p>
+          <Link to="/conductores" className="pill pill-primary cf-boton">
+            Ver conductores disponibles
+          </Link>
           <Link to="/publicar" className="pill pill-primary cf-boton">
             Publicar una oferta
           </Link>
