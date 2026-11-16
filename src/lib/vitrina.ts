@@ -68,7 +68,9 @@ export function enlaceContacto(base: string | undefined, ref: string): string | 
   if (!base) return undefined;
   try {
     const url = new URL(base);
-    if (url.origin !== new URL(WS).origin || url.protocol !== "https:") return undefined;
+    // Solo al portal del mismo WS y por https; http, solo con el WS en local (XAMPP, npm run dev:local).
+    const local = url.protocol === "http:" && ["localhost", "127.0.0.1"].includes(url.hostname);
+    if (url.origin !== new URL(WS).origin || (url.protocol !== "https:" && !local)) return undefined;
     return `${base}&candidato=${encodeURIComponent(ref)}`;
   } catch { return undefined; }
 }

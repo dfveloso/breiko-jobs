@@ -21,6 +21,11 @@ describe("Bolsa pública de conductores", () => {
     const base = "https://ws.breikobreiko.com/breiko-ws/ws/portal/index.html#empleo?bolsa=provincia-15";
     expect(enlaceContacto(base, "a1b2c3d4e5f60718")).toBe(`${base}&candidato=a1b2c3d4e5f60718`);
     expect(enlaceContacto("javascript:alert(1)", "ref")).toBeUndefined();
+    expect(enlaceContacto(base.replace("https:", "http:"), "ref")).toBeUndefined();
+  });
+  it("mantiene la búsqueda del asistente en el enlace de contacto", () => {
+    const base = "https://ws.breikobreiko.com/breiko-ws/ws/portal/index.html#empleo?bolsa=provincia-15&busqueda=%7B%22carnet%22%3A%22CE%22%7D";
+    expect(enlaceContacto(base, "a1b2")).toBe(`${base}&candidato=a1b2`);
   });
   it("solo muestra actividad cuando hay viajes", () => {
     expect(actividadTexto({ viajes: 0, km: 12300, pct_larga: 60, dias: 90 })).toBeUndefined();
